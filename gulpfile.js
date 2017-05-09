@@ -6,6 +6,7 @@ const gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     pug = require('gulp-pug'),
     browserSync = require('browser-sync'),
+    sync = require('run-sequence'),
     webpack = require('webpack-stream');
 
 // paths
@@ -37,15 +38,15 @@ gulp.task('buildJS', () => {
         .pipe(gulp.dest(paths.public));
 });
 
-gulp.task('serve', () => {
+gulp.task('watch', () => {
     browserSync({
-        port: process.env.PORT || 4500,
-        open: true,
-        ghostMode: false,
-        server: {
-            baseDir: 'public'
-        }
+        proxy: 'localhost:4000',
+        port: 5000,
+        notify: true
     });
+    gulp.watch(paths.sass, ['sass2css', browserSync.reload]);
+    gulp.watch(paths.pug, ['pug2html', browserSync.reload]);
+    gulp.watch(paths.entryJs, ['buildJS', browserSync.reload]);
 });
 
 
@@ -60,10 +61,9 @@ gulp.task('nodemon', () => {
         });
 });
 
-gulp.task('watch', () => {
-    gulp.watch(paths.app, browserSync.reload);
-});
-
 
 gulp.task('build', ['pug2html', 'sass2css', 'buildJS']);
-gulp.task('default', ['build', 'nodemon', 'serve', 'watch']);
+
+gulp.task('default', (done) => {
+    sync('build', 'nodemon', 'watch', done);
+});
