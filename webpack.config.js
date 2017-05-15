@@ -5,7 +5,8 @@ module.exports = {
     devtool: 'sourcemap',
     module: {
         loaders: [
-            { test: /\.js$/, loader: 'babel-loader', exclude: [/public\/lib/, /node_modules/] }
+            { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
+            { test: /\.scss$/, loader: ['style', 'css', 'sass'] }
         ]
     }
 };

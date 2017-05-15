@@ -23,47 +23,38 @@ const paths = {
 gulp.task('pug2html', () => {
     gulp.src(paths.pug)
         .pipe(pug())
-        .pipe(gulp.dest(paths.public));
+        .pipe(gulp.dest(paths.public))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('sass2css', () => {
     gulp.src(paths.sass)
         .pipe(sass())
-        .pipe(gulp.dest(paths.public + '/css'));
+        .pipe(gulp.dest(paths.public + '/css'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('buildJS', () => {
     gulp.src(paths.entryJs)
         .pipe(webpack(require('./webpack.config')))
-        .pipe(gulp.dest(paths.public));
+        .pipe(gulp.dest(paths.public))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('watch', () => {
-    browserSync({
+    browserSync.init(null, {
         proxy: 'localhost:4000',
         port: 5000,
-        notify: true
+        browser: 'google chrome'
     });
-    gulp.watch(paths.sass, ['sass2css', browserSync.reload]);
-    gulp.watch(paths.pug, ['pug2html', browserSync.reload]);
-    gulp.watch(paths.entryJs, ['buildJS', browserSync.reload]);
+    gulp.watch(paths.sass, ['sass2css']);
+    gulp.watch(paths.pug, ['pug2html']);
+    gulp.watch(paths.entryJs, ['buildJS']);
 });
 
 
-gulp.task('nodemon', () => {
-    nodemon({
-            script: 'index.js',
-            ext: 'js',
-            ignore: ['public/', 'node_modules/']
-        })
-        .on('restart', function() {
-            console.log('>> node restart');
-        });
-});
-
-
-gulp.task('build', ['pug2html', 'sass2css', 'buildJS']);
+gulp.task('build', ['pug2html', 'buildJS']);
 
 gulp.task('default', (done) => {
-    sync('build', 'nodemon', 'watch', done);
+    sync('build', 'watch', done);
 });
