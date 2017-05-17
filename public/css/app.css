@@ -1,0 +1,29 @@
+.indicator-group text,
+.area-group text {
+  font: 9px sans-serif;
+  pointer-events: none; }
+
+.indicator-group path,
+.area-group path {
+  fill-opacity: 0.7; }
+
+.area-group path {
+  fill-opacity: 0.5; }
+
+path.chord {
+  stroke-width: .75;
+  fill-opacity: .75; }
+
+.svg-holder {
+  display: flex;
+  justify-content: center; }
+
+.area-group-main {
+  font: 15px sans-serif;
+  pointer-events: none;
+  fill-opacity: 0.7; }
+
+body h2 {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 20px 0; }
