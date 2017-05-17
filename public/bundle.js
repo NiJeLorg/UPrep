@@ -56,246 +56,227 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	// require('../sass/app.scss');
-	
-	var groupNames = ['Culture of High Expectations', 'Demanding Curriculum', 'Engaging Instruction', 'Rigorous Assesements'];
+	var areas = [{
+	    metric: 'Culture of High Expectations',
+	    id: '1'
+	}, {
+	    metric: 'Demanding Curriculum',
+	    id: '2'
+	}, {
+	    metric: 'Engaging Instruction',
+	    id: '3'
+	}, {
+	    metric: 'Rigorous Assessments',
+	    id: '4'
+	}];
 	
 	var data = [{
-	    group: 'Culture of High Expectations',
+	    area: '1',
 	    id: 'Grading',
 	    plans: ['Perserverance', 'Formative Assesements', 'Summative Assesements', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making']
 	}, {
-	    group: 'Culture of High Expectations',
+	    area: '1',
 	    id: 'College-Going Culture',
 	    plans: ['Perserverance', 'Task Reflection']
 	}, {
-	    group: 'Culture of High Expectations',
+	    area: '1',
 	    id: 'High-Quality Work',
 	    plans: ['Tasks', 'Task Reflection']
 	}, {
-	    group: 'Culture of High Expectations',
+	    area: '1',
 	    id: 'Timeliness and Preparation',
 	    plans: ['Tasks']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Interconnectedness of Standards',
 	    plans: ['Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Differentiation', 'Summative Assessments', 'Assessment Design', 'Tasks']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Unit Planning',
 	    plans: ['Portfolio Passages', 'Tasks', 'Task Reflection']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Learning Targets',
 	    plans: ['Student-Led Conferences', 'Leveraging Learning Targets', 'Summative Assessments', 'Formative Assessments', 'Tasks', 'Learning Target Reflection']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Lesson Design',
 	    plans: ['Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions', 'Formative Assessments', 'Tasks']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Use of Protocols',
 	    plans: ['Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Reflection',
 	    plans: ['Collaborative Best Practices', 'Professional Growth']
 	}, {
-	    group: 'Demanding Curriculum',
+	    area: '2',
 	    id: 'Task Selection',
 	    plans: ['Student-Led Conferences', 'Portfolio Passages']
 	}, {
-	    group: 'Engaging Instruction',
+	    area: '3',
 	    id: 'Leveraging Learning Targets',
 	    plans: ['Feedback']
 	}, {
-	    group: 'Engaging Instruction',
+	    area: '3',
 	    id: 'Teacher as Facilitator',
 	    plans: ['Leveraging Crew']
 	}, {
-	    group: 'Engaging Instruction',
+	    area: '3',
 	    id: 'Peer Critique and Critical Thinking',
 	    plans: ['Feedback']
 	}, {
-	    group: 'Rigorous Assesements',
+	    area: '4',
 	    id: 'Summative Assesements',
 	    plans: ['Reflection', 'Data-Driven Decision Making']
 	}, {
-	    group: 'Rigorous Assesements',
+	    area: '4',
 	    id: 'Tasks',
 	    plans: ['Visible Environment', 'Student-Led Conferences', 'Use of Protocols', 'Task Selection', 'Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Modification in the Moment', 'Differentiation', 'Asking Questions', 'Perseverance']
 	}, {
-	    group: 'Rigorous Assesements',
+	    area: '4',
 	    id: 'Learning Target Reflection',
 	    plans: ['Portfolio Passages', 'Perserverance']
 	}, {
-	    group: 'Rigorous Assesements',
+	    area: '4',
 	    id: 'Task Reflection',
 	    plans: ['Internalizing Routines and Procedures', 'Self-evaluation', 'Student-Led conferences', 'Portfolio Passages']
 	}];
 	
-	var groupRadius = 960 / 2,
-	    indicatorRadius = groupRadius - 130,
-	    relativeIndicatorRadius = indicatorRadius - 20;
+	var indicators = [],
+	    indicatorObj = {};
+	for (var i = 0; i < data.length; i++) {
+	    indicators[i] = [];
+	    indicatorObj[data[i].id] = i;
+	    for (var j = 0; j < data.length; j++) {
+	        indicators[i][j] = 0;
+	    }
+	}
 	
-	var svg = d3.select('.svg-holder').append('svg').attr('width', groupRadius * 2.5).attr('height', groupRadius * 2.5).append('g').attr('transform', "translate(" + groupRadius + "," + groupRadius + ")");
+	// populate the indicators matrix
+	data.forEach(function (indicator) {
+	    indicator.plans.forEach(function (similarInidcator) {
+	        if (indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator]] !== undefined) {
+	            indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator]] = 1;
+	        }
+	    });
+	});
+	
+	// initialize square matrix for areas and stash the unique id for each area
+	var areaMatrix = [],
+	    areaIds = {};
+	for (var i = 0; i < areas.length; i++) {
+	    areaMatrix[i] = [];
+	    areaIds[areas[i].id] = i;
+	    for (var j = 0; j < areas.length; j++) {
+	        areaMatrix[i][j] = 0;
+	    }
+	}
+	// populate the areas matrix
+	areas.forEach(function (area) {
+	    data.forEach(function (indicator) {
+	        areaMatrix[areaIds[indicator.area]][areaIds[area.id]] += parseInt(area.id);
+	    });
+	});
 	
 	var fade = function fade(opacity) {
 	    return function (d, i) {
-	        svg.selectAll("path.chord").filter(function (d) {
+	        svg.selectAll('path.chord').filter(function (d) {
 	            return d.source.index != i && d.target.index != i;
-	        }).transition().style("stroke-opacity", opacity).style("fill-opacity", opacity);
+	        }).transition().style('stroke-opacity', opacity).style('fill-opacity', opacity);
 	    };
 	};
 	
-	var createFirstChordDiagram = function createFirstChordDiagram() {
+	var width = 900,
+	    height = 900,
+	    outerRadius = Math.min(width, height) / 2 - 20,
+	    innerRadius = outerRadius - 20,
+	    currentArea = 0;
 	
-	    var chord = d3.layout.chord().padding(0).sortSubgroups(d3.descending).sortChords(d3.descending);
+	var angle = d3.scale.ordinal().domain(d3.range(0, data.length)).rangeBands([0, 2 * Math.PI]);
 	
-	    var fill = d3.scale.category20c();
+	var areasArc = d3.svg.arc().innerRadius(outerRadius - 14).outerRadius(outerRadius + 20);
 	
-	    var arc = d3.svg.arc().innerRadius(relativeIndicatorRadius).outerRadius(relativeIndicatorRadius + 20);
+	var areasLayout = d3.layout.chord().padding(0);
 	
-	    var parseData = function parseData(dataset) {
-	        var indexByName = d3.map(),
-	            nameByIndex = d3.map(),
-	            matrix = [],
-	            n = 0;
+	var indicatorArc = d3.svg.arc().innerRadius(innerRadius - 24).outerRadius(outerRadius - 14).startAngle(function (d, i) {
+	    return angle(d.index);
+	}).endAngle(function (d, i) {
+	    return angle(d.index) + angle.rangeBand();
+	});
 	
-	        dataset.forEach(function (item) {
-	            nameByIndex.set(n, item.id);
-	            indexByName.set(item.id, n++);
-	        });
+	var indicatorLayout = d3.layout.chord().padding(0);
 	
-	        dataset.forEach(function (item) {
-	            var source = indexByName.get(item.id),
-	                row = matrix[source];
+	var chord = d3.svg.chord().radius(innerRadius - 24).startAngle(function (d, i) {
+	    return angle(d.index) + angle.rangeBand() / 2 - 0.05;
+	}).endAngle(function (d, i) {
+	    return angle(d.index) + angle.rangeBand() / 2 + 0.05;
+	});
 	
-	            if (!row) {
-	                row = matrix[source] = [];
-	                for (var i = -1; ++i < n;) {
-	                    row[i] = 0;
-	                }item.plans.forEach(function (d) {
-	                    row[indexByName.get(d)]++;
-	                });
-	            }
-	        });
+	// The color scale
+	var indicatorFill = d3.scale.category20c();
+	var areaFill = d3.scale.category10();
 	
-	        chord.matrix(matrix);
+	// attach svg object to the content well
+	var svg = d3.select('.svg-holder').selectAll('div').data([indicators]).enter().append('div').style('width', width + 'px').style('height', height + 'px').append('svg:svg').attr('width', width).attr('height', height).append('svg:g').attr('transform', "translate(" + width / 2 + "," + height / 2 + ")");
 	
-	        // draw outer arcs
-	        var g = svg.selectAll('.group').data(chord.groups).enter().append('g').attr('class', 'group').on('mouseover', fade(0.1)).on('mouseout', fade(.80));
+	var colors = [];
 	
-	        g.append("path").style("fill", function (d) {
-	            return fill(d.index);
-	        }).style("stroke", function (d) {
-	            return fill(d.index);
-	        }).attr("d", arc);
+	svg.each(function (matrix, j) {
+	    var svg = d3.select(this);
+	    indicatorLayout.matrix(indicators);
+	    areasLayout.matrix(areaMatrix);
 	
-	        // g.append("text")
-	        //     .each(function(d) { d.angle = (d.startAngle + d.endAngle) / 2; })
-	        //     .attr("dy", ".35em")
-	        //     .attr("transform", function(d) {
-	        //         return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")" + "translate(" + (innerRadius + 26) + ")" + (d.angle > Math.PI ? "rotate(180)" : "");
-	        //     })
-	        //     .style("text-anchor", function(d) {
-	        //         return d.angle > Math.PI ? "end" : null;
-	        //     })
-	        //     .text(function(d) {
-	        //         return nameByIndex.get(d.index);
-	        //     });
+	    var indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', fade(0.1)).on('mouseout', fade(0.80));
 	
-	        svg.selectAll("path.chord").data(chord.chords).enter().append("path").attr("class", "chord").style("stroke", function (d) {
-	            return d3.rgb(fill(d.source.index)).darker();
-	        }).style("fill", function (d) {
-	            return fill(d.source.index);
-	        }).attr("d", d3.svg.chord().radius(relativeIndicatorRadius));
-	    };
+	    indicatorGroups.append('svg:path').style('fill', function (d, i) {
+	        colors.push(indicatorFill(i));
+	        return indicatorFill(i);
+	    }).attr('id', function (d, i) {
+	        return 'indicator-group' + d.index + '-' + j;
+	    }).attr('d', indicatorArc).append('svg:title').text(function (d, i) {
+	        return data[i].id;
+	    });
 	
-	    d3.select(self.frameElement).style("height", indicatorRadius * 2 + "px");
+	    // add area groups
+	    var areaGroups = svg.selectAll('g.area-group-main').data(areasLayout.groups).enter().append('svg:g').attr('class', 'area-group-main');
 	
-	    parseData(data);
-	};
+	    // Add the area group arc
+	    areaGroups.append('svg:path').style('fill', function (d, i) {
+	        return areaFill(d.index);
+	    }).attr('id', function (d, i) {
+	        return 'area-group-main' + d.index + '-' + j;
+	    }).attr('d', areasArc).append('svg:title').text(function (d, i) {
+	        return areas[i].metric;
+	    });
 	
-	var createAnotherChordDiagram = function createAnotherChordDiagram() {
+	    // add area names
+	    areaGroups.append('svg:text').attr('x', 6).attr('dy', 15).append('svg:textPath').attr('xlink:href', function (d) {
+	        return '#area-group-main' + d.index + '-' + j;
+	    }).text(function (d, i) {
+	        return areas[i].metric;
+	    });
 	
-	    var chord = d3.layout.chord().padding(0).sortSubgroups(d3.descending).sortChords(d3.descending);
+	    // Add chords between indicator
+	    svg.selectAll('path.chord').data(indicatorLayout.chords).enter().append('svg:path').style('fill', function (d, i) {
+	        // temporary add d just to render grey color for the chords instead
+	        return indicatorFill(d);
+	    }).attr('class', 'chord').attr('d', chord).append('svg:title').text(function (d) {
+	        var title = data[d.source.index].id + ' and ' + data[d.target.index].id + ": " + d.source.value + " plan";
+	        if (d.source.value > 1) {
+	            title = title + 's';
+	        }
+	        return title;
+	    });
 	
-	    var fill = d3.scale.category10();
-	
-	    var arc = d3.svg.arc().innerRadius(indicatorRadius).outerRadius(indicatorRadius + 20);
-	
-	    var parseData = function parseData(dataset) {
-	
-	        var indexByName = d3.map(),
-	            nameByIndex = d3.map(),
-	            matrix = [],
-	            n = 0;
-	
-	        groupNames.forEach(function (item) {
-	            nameByIndex.set(n, item);
-	            indexByName.set(item, n++);
-	        });
-	
-	        groupNames.forEach(function (item) {
-	            var source = indexByName.get(item),
-	                row = matrix[source];
-	
-	            if (!row) {
-	                row = matrix[source] = [];
-	                for (var i = -1; ++i < n;) {
-	                    row[i] = 0;
-	                }dataset.forEach(function (d) {
-	                    row[indexByName.get(d.group)]++;
-	                });
-	            }
-	        });
-	
-	        chord.matrix(matrix);
-	
-	        // draw outer arcs
-	        var g = svg.selectAll('.another-group').data(chord.groups).enter().append('g').attr('class', 'group');
-	
-	        g.append("path").style("fill", function (d) {
-	            return fill(d.index);
-	        }).style("stroke", function (d) {
-	            return fill(d.index);
-	        }).attr("d", arc);
-	
-	        // g.append("text")
-	        //     .each(function(d) { d.angle = (d.startAngle + d.endAngle) / 2; })
-	        //     .attr("dy", ".35em")
-	        //     .attr("transform", function(d) {
-	        //         return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")" + "translate(" + (innerRadius + 26) + ")" + (d.angle > Math.PI ? "rotate(180)" : "");
-	        //     })
-	        //     .style("text-anchor", function(d) {
-	        //         return d.angle > Math.PI ? "end" : null;
-	        //     })
-	        //     .text(function(d) {
-	        //         return nameByIndex.get(d.index);
-	        //     });
-	
-	        // svg.selectAll("path.chord")
-	        //     .data(chord.chords)
-	        //     .enter().append("path")
-	        //     .attr("class", "chord")
-	        //     .style("stroke", function(d) {
-	        //         return d3.rgb(fill(d.source.index)).darker();
-	        //     })
-	        //     .style("fill", function(d) {
-	        //         return fill(d.source.index);
-	        //     })
-	        //     .attr("d", d3.svg.chord().radius(innerRadius));
-	    };
-	
-	    // d3.select(self.frameElement).style("height", outerRadius * 2 + "px");
-	
-	
-	    parseData(data);
-	};
-	
-	createFirstChordDiagram();
-	createAnotherChordDiagram();
+	    // add faculty names
+	    indicatorGroups.append('svg:text').attr('x', 6).attr('dy', 15).append('svg:textPath').attr("xlink:href", function (d) {
+	        return "#indicator-group" + d.index + "-" + j;
+	    }).text(function (d, i) {
+	        return data[i].id;
+	    });
+	});
 
 /***/ }),
 /* 1 */
