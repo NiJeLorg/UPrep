@@ -1,13 +1,14 @@
 .indicator-group text,
-.area-group text {
+.component-group text,
+.element-group text {
   font: 9px sans-serif;
   pointer-events: none; }
 
-.indicator-group path,
-.area-group path {
+.indicator-group path {
   fill-opacity: 0.7; }
 
-.area-group path {
+.component-group path,
+.element-group path {
   fill-opacity: 0.5; }
 
 path.chord {
@@ -18,10 +19,16 @@ path.chord {
   display: flex;
   justify-content: center; }
 
-.area-group-main {
-  font: 15px sans-serif;
+.component-group-main,
+.element-group-main {
   pointer-events: none;
   fill-opacity: 0.7; }
+
+.component-group-main {
+  font: 12px sans-serif; }
+
+.element-group-main {
+  font: 15px sans-serif; }
 
 body h2 {
   font-family: sans-serif;
