@@ -85,7 +85,7 @@ const data = [{
         component: '1',
         id: 'Grading',
         plans: [
-            'Perserverance', 'Formative Assesements', 'Summative Assesements', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making'
+            'Perserverance', 'Formative Assessments', 'Summative Assessments', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making'
         ]
     }, {
         element: '1',
@@ -254,7 +254,7 @@ const data = [{
     }, {
         element: '4',
         component: '10',
-        id: 'Summative Assesements',
+        id: 'Summative Assessments',
         plans: [
             'Reflection', 'Data-Driven Decision Making'
         ]
