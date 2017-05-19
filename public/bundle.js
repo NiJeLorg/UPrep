@@ -425,9 +425,12 @@
 	    };
 	};
 	
-	var width = 900,
-	    height = 900,
-	    outerRadius = Math.min(width, height) / 2 - 20,
+	var width = void 0,
+	    height = void 0;
+	
+	width = height = window.innerWidth * .52;
+	
+	var outerRadius = Math.min(width, height) / 2 - 20,
 	    innerRadius = outerRadius - 20,
 	    currentArea = 0;
 	

@@ -425,9 +425,13 @@ const fade = (opacity) => {
     };
 };
 
-const width = 900,
-    height = 900,
-    outerRadius = Math.min(width, height) / 2 - 20,
+
+let width, height;
+
+width = height = window.innerWidth * .52;
+
+
+const outerRadius = Math.min(width, height) / 2 - 20,
     innerRadius = outerRadius - 20,
     currentArea = 0;
 
