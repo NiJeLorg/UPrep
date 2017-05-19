@@ -58,19 +58,24 @@
 	
 	var elements = [{
 	    element: 'Culture of High Expectations',
-	    id: '1'
+	    id: '1',
+	    color: '#62A0CA'
 	}, {
 	    element: 'Demanding Curriculum',
-	    id: '2'
+	    id: '2',
+	    color: '#FFA556'
 	}, {
 	    element: 'Engaging Instruction',
-	    id: '3'
+	    id: '3',
+	    color: '#6BBC6B'
 	}, {
 	    element: 'Rigorous Assessments',
-	    id: '4'
+	    id: '4',
+	    color: '#E26868'
 	}, {
 	    element: 'Shared Leadership',
-	    id: '5'
+	    id: '5',
+	    color: '#B495D1'
 	}];
 	
 	var components = [{
@@ -139,7 +144,7 @@
 	    element: '1',
 	    component: '1',
 	    id: 'Grading',
-	    plans: ['Perserverance', 'Formative Assesements', 'Summative Assesements', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making']
+	    plans: ['Perserverance', 'Formative Assessments', 'Summative Assessments', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making']
 	}, {
 	    element: '1',
 	    component: '1',
@@ -273,7 +278,7 @@
 	}, {
 	    element: '4',
 	    component: '10',
-	    id: 'Summative Assesements',
+	    id: 'Summative Assessments',
 	    plans: ['Reflection', 'Data-Driven Decision Making']
 	}, {
 	    element: '4',
@@ -346,6 +351,18 @@
 	    id: 'Professional Trust (Individual)',
 	    plans: []
 	}];
+	
+	var indicatorsWithoutConnection = [];
+	
+	var findNodesWithoutConnection = function findNodesWithoutConnection() {
+	    data.forEach(function (indicator) {
+	        if (indicator.plans < 1) {
+	            indicatorsWithoutConnection.push(indicator);
+	        }
+	    });
+	};
+	
+	findNodesWithoutConnection();
 	
 	var indicators = [],
 	    indicatorObj = {};
@@ -493,7 +510,7 @@
 	
 	    // Add the element group arc
 	    elementGroups.append('svg:path').style('fill', function (d, i) {
-	        return elementFill(d.index);
+	        return elements[i].color;
 	    }).attr('id', function (d, i) {
 	        return 'element-group-main' + d.index + '-' + j;
 	    }).attr('d', elementArc).append('svg:title').text(function (d, i) {
@@ -509,8 +526,7 @@
 	
 	    // Add chords between indicator
 	    svg.selectAll('path.chord').data(indicatorLayout.chords).enter().append('svg:path').style('fill', function (d, i) {
-	        // temporary add d just to render grey color for the chords instead
-	        return indicatorFill(d);
+	        return elements[data[d.source.index].element - 1].color;
 	    }).attr('class', 'chord').attr('d', chord).append('svg:title').text(function (d) {
 	        var title = data[d.source.index].id + ' and ' + data[d.target.index].id + ": " + d.source.value + " plan";
 	        if (d.source.value > 1) {

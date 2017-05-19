@@ -3,19 +3,24 @@ import * as $ from 'jQuery';
 
 const elements = [{
     element: 'Culture of High Expectations',
-    id: '1'
+    id: '1',
+    color: '#62A0CA'
 }, {
     element: 'Demanding Curriculum',
-    id: '2'
+    id: '2',
+    color: '#FFA556'
 }, {
     element: 'Engaging Instruction',
-    id: '3'
+    id: '3',
+    color: '#6BBC6B'
 }, {
     element: 'Rigorous Assessments',
-    id: '4'
+    id: '4',
+    color: '#E26868'
 }, {
     element: 'Shared Leadership',
-    id: '5'
+    id: '5',
+    color: '#B495D1'
 }];
 
 const components = [{
@@ -81,261 +86,275 @@ const components = [{
 }];
 
 const data = [{
-        element: '1',
-        component: '1',
-        id: 'Grading',
-        plans: [
-            'Perserverance', 'Formative Assessments', 'Summative Assessments', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making'
-        ]
-    }, {
-        element: '1',
-        component: '1',
-        id: 'College-Going Culture',
-        plans: [
-            'Perserverance', 'Task Reflection',
-        ]
-    }, {
-        element: '1',
-        component: '1',
-        id: 'High-Quality Work',
-        plans: [
-            'Tasks', 'Task Reflection',
-        ]
-    }, {
-        element: '1',
-        component: '1',
-        id: 'Timeliness and Preparation',
-        plans: [
-            'Tasks'
-        ]
-    }, {
-        element: '1',
-        component: '2',
-        id: 'Citizenship',
-        plans: []
-    }, {
-        element: '1',
-        component: '2',
-        id: 'Visible Environment',
-        plans: []
-    }, {
-        element: '1',
-        component: '2',
-        id: 'Internalizing Routines and Procedures',
-        plans: []
-    }, {
-        element: '1',
-        component: '2',
-        id: 'Crew',
-        plans: []
-    }, {
-        element: '1',
-        component: '2',
-        id: 'Leveraging Crew',
-        plans: []
-    }, {
-        element: '1',
-        component: '3',
-        id: 'Self-Evaluation',
-        plans: []
-    }, {
-        element: '1',
-        component: '3',
-        id: 'Student-Led Conferences',
-        plans: []
-    }, {
-        element: '1',
-        component: '3',
-        id: 'Portfolio Passages',
-        plans: []
-    }, {
-        element: '2',
-        component: '4',
-        id: 'Interconnectedness of Standards',
-        plans: [
-            'Leveraging Learning Targets',
-            'Teacher as Facilitator',
-            'Peer Critique and Critical Thinking',
-            'Differentiation',
-            'Summative Assessments',
-            'Assessment Design',
-            'Tasks'
-        ]
-    }, {
-        element: '2',
-        component: '5',
-        id: 'Unit Planning',
-        plans: [
-            'Portfolio Passages', 'Tasks', 'Task Reflection'
-        ]
-    }, {
-        element: '2',
-        component: '5',
-        id: 'Learning Targets',
-        plans: [
-            'Student-Led Conferences', 'Leveraging Learning Targets', 'Summative Assessments', 'Formative Assessments', 'Tasks', 'Learning Target Reflection'
-        ]
-    }, {
-        element: '2',
-        component: '5',
-        id: 'Lesson Design',
-        plans: [
-            'Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions', 'Formative Assessments', 'Tasks'
-        ]
-    }, {
-        element: '2',
-        component: '5',
-        id: 'Use of Protocols',
-        plans: [
-            'Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions'
-        ]
-    }, {
-        element: '2',
-        component: '5',
-        id: 'Reflection',
-        plans: [
-            'Collaborative Best Practices',
-            'Professional Growth'
-        ]
-    }, {
-        element: '2',
-        component: '6',
-        id: 'Task Selection',
-        plans: [
-            'Student-Led Conferences',
-            'Portfolio Passages'
-        ]
-    }, {
-        element: '3',
-        component: '7',
-        id: 'Leveraging Learning Targets',
-        plans: [
-            'Feedback',
-        ]
-    }, {
-        element: '3',
-        component: '7',
-        id: 'Teacher as Facilitator',
-        plans: [
-            'Leveraging Crew',
-        ]
-    }, {
-        element: '3',
-        component: '7',
-        id: 'Peer Critique and Critical Thinking',
-        plans: [
-            'Feedback',
-        ]
-    }, {
-        element: '3',
-        component: '8',
-        id: 'Modification in the Moment',
-        plans: []
-    }, {
-        element: '3',
-        component: '8',
-        id: 'Differentiation',
-        plans: []
-    }, {
-        element: '3',
-        component: '9',
-        id: 'Asking Questions',
-        plans: []
-    }, {
-        element: '3',
-        component: '9',
-        id: 'Perseverance',
-        plans: []
-    }, {
-        element: '4',
-        component: '10',
-        id: 'Formative Assessments',
-        plans: []
-    }, {
-        element: '4',
-        component: '10',
-        id: 'Summative Assessments',
-        plans: [
-            'Reflection', 'Data-Driven Decision Making'
-        ]
-    }, {
-        element: '4',
-        component: '10',
-        id: 'Assessment Design',
-        plans: []
-    }, {
-        element: '4',
-        component: '10',
-        id: 'Tasks',
-        plans: [
-            'Visible Environment', 'Student-Led Conferences', 'Use of Protocols', 'Task Selection', 'Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Modification in the Moment', 'Differentiation', 'Asking Questions', 'Perseverance'
-        ]
-    }, {
-        element: '4',
-        component: '11',
-        id: 'Feedback',
-        plans: []
-    }, {
-        element: '4',
-        component: '12',
-        id: 'Learning Target Reflection',
-        plans: [
-            'Portfolio Passages', 'Perserverance'
-        ]
-    }, {
-        element: '4',
-        component: '12',
-        id: 'Task Reflection',
-        plans: [
-            'Internalizing Routines and Procedures', 'Self-evaluation', 'Student-Led conferences', 'Portfolio Passages'
-        ]
-    }, {
-        element: '5',
-        component: '13',
-        id: 'Progress Monitoring',
-        plans: []
-    }, {
-        element: '5',
-        component: '13',
-        id: 'Data-Driven Decision Making',
-        plans: []
-    }, {
-        element: '5',
-        component: '13',
-        id: 'Work Plan Development',
-        plans: []
-    }, {
-        element: '5',
-        component: '13',
-        id: 'Professional Trust (Leaders)',
-        plans: []
-    }, {
-        element: '5',
-        component: '14',
-        id: 'Work Plan Alignment',
-        plans: []
-    }, {
-        element: '5',
-        component: '14',
-        id: 'Collaborative Best Practices',
-        plans: []
-    }, {
-        element: '5',
-        component: '14',
-        id: 'Professional Trust (Teams)',
-        plans: []
-    }, {
-        element: '5',
-        component: '15',
-        id: 'Professional Growth',
-        plans: []
-    }, {
-        element: '5',
-        component: '15',
-        id: 'Professional Trust (Individual)',
-        plans: []
-    }, 
-];
+    element: '1',
+    component: '1',
+    id: 'Grading',
+    plans: [
+        'Perserverance', 'Formative Assessments', 'Summative Assessments', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making'
+    ]
+}, {
+    element: '1',
+    component: '1',
+    id: 'College-Going Culture',
+    plans: [
+        'Perserverance', 'Task Reflection',
+    ]
+}, {
+    element: '1',
+    component: '1',
+    id: 'High-Quality Work',
+    plans: [
+        'Tasks', 'Task Reflection',
+    ]
+}, {
+    element: '1',
+    component: '1',
+    id: 'Timeliness and Preparation',
+    plans: [
+        'Tasks'
+    ]
+}, {
+    element: '1',
+    component: '2',
+    id: 'Citizenship',
+    plans: []
+}, {
+    element: '1',
+    component: '2',
+    id: 'Visible Environment',
+    plans: []
+}, {
+    element: '1',
+    component: '2',
+    id: 'Internalizing Routines and Procedures',
+    plans: []
+}, {
+    element: '1',
+    component: '2',
+    id: 'Crew',
+    plans: []
+}, {
+    element: '1',
+    component: '2',
+    id: 'Leveraging Crew',
+    plans: []
+}, {
+    element: '1',
+    component: '3',
+    id: 'Self-Evaluation',
+    plans: []
+}, {
+    element: '1',
+    component: '3',
+    id: 'Student-Led Conferences',
+    plans: []
+}, {
+    element: '1',
+    component: '3',
+    id: 'Portfolio Passages',
+    plans: []
+}, {
+    element: '2',
+    component: '4',
+    id: 'Interconnectedness of Standards',
+    plans: [
+        'Leveraging Learning Targets',
+        'Teacher as Facilitator',
+        'Peer Critique and Critical Thinking',
+        'Differentiation',
+        'Summative Assessments',
+        'Assessment Design',
+        'Tasks'
+    ]
+}, {
+    element: '2',
+    component: '5',
+    id: 'Unit Planning',
+    plans: [
+        'Portfolio Passages', 'Tasks', 'Task Reflection'
+    ]
+}, {
+    element: '2',
+    component: '5',
+    id: 'Learning Targets',
+    plans: [
+        'Student-Led Conferences', 'Leveraging Learning Targets', 'Summative Assessments', 'Formative Assessments', 'Tasks', 'Learning Target Reflection'
+    ]
+}, {
+    element: '2',
+    component: '5',
+    id: 'Lesson Design',
+    plans: [
+        'Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions', 'Formative Assessments', 'Tasks'
+    ]
+}, {
+    element: '2',
+    component: '5',
+    id: 'Use of Protocols',
+    plans: [
+        'Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions'
+    ]
+}, {
+    element: '2',
+    component: '5',
+    id: 'Reflection',
+    plans: [
+        'Collaborative Best Practices',
+        'Professional Growth'
+    ]
+}, {
+    element: '2',
+    component: '6',
+    id: 'Task Selection',
+    plans: [
+        'Student-Led Conferences',
+        'Portfolio Passages'
+    ]
+}, {
+    element: '3',
+    component: '7',
+    id: 'Leveraging Learning Targets',
+    plans: [
+        'Feedback',
+    ]
+}, {
+    element: '3',
+    component: '7',
+    id: 'Teacher as Facilitator',
+    plans: [
+        'Leveraging Crew',
+    ]
+}, {
+    element: '3',
+    component: '7',
+    id: 'Peer Critique and Critical Thinking',
+    plans: [
+        'Feedback',
+    ]
+}, {
+    element: '3',
+    component: '8',
+    id: 'Modification in the Moment',
+    plans: []
+}, {
+    element: '3',
+    component: '8',
+    id: 'Differentiation',
+    plans: []
+}, {
+    element: '3',
+    component: '9',
+    id: 'Asking Questions',
+    plans: []
+}, {
+    element: '3',
+    component: '9',
+    id: 'Perseverance',
+    plans: []
+}, {
+    element: '4',
+    component: '10',
+    id: 'Formative Assessments',
+    plans: []
+}, {
+    element: '4',
+    component: '10',
+    id: 'Summative Assessments',
+    plans: [
+        'Reflection', 'Data-Driven Decision Making'
+    ]
+}, {
+    element: '4',
+    component: '10',
+    id: 'Assessment Design',
+    plans: []
+}, {
+    element: '4',
+    component: '10',
+    id: 'Tasks',
+    plans: [
+        'Visible Environment', 'Student-Led Conferences', 'Use of Protocols', 'Task Selection', 'Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Modification in the Moment', 'Differentiation', 'Asking Questions', 'Perseverance'
+    ]
+}, {
+    element: '4',
+    component: '11',
+    id: 'Feedback',
+    plans: []
+}, {
+    element: '4',
+    component: '12',
+    id: 'Learning Target Reflection',
+    plans: [
+        'Portfolio Passages', 'Perserverance'
+    ]
+}, {
+    element: '4',
+    component: '12',
+    id: 'Task Reflection',
+    plans: [
+        'Internalizing Routines and Procedures', 'Self-evaluation', 'Student-Led conferences', 'Portfolio Passages'
+    ]
+}, {
+    element: '5',
+    component: '13',
+    id: 'Progress Monitoring',
+    plans: []
+}, {
+    element: '5',
+    component: '13',
+    id: 'Data-Driven Decision Making',
+    plans: []
+}, {
+    element: '5',
+    component: '13',
+    id: 'Work Plan Development',
+    plans: []
+}, {
+    element: '5',
+    component: '13',
+    id: 'Professional Trust (Leaders)',
+    plans: []
+}, {
+    element: '5',
+    component: '14',
+    id: 'Work Plan Alignment',
+    plans: []
+}, {
+    element: '5',
+    component: '14',
+    id: 'Collaborative Best Practices',
+    plans: []
+}, {
+    element: '5',
+    component: '14',
+    id: 'Professional Trust (Teams)',
+    plans: []
+}, {
+    element: '5',
+    component: '15',
+    id: 'Professional Growth',
+    plans: []
+}, {
+    element: '5',
+    component: '15',
+    id: 'Professional Trust (Individual)',
+    plans: []
+}, ];
+
+
+
+const indicatorsWithoutConnection = [];
+
+const findNodesWithoutConnection = () => {
+    data.forEach((indicator) => {
+        if (indicator.plans < 1) {
+            indicatorsWithoutConnection.push(indicator);
+        }
+    });
+};
+
+
+findNodesWithoutConnection();
 
 
 var indicators = [],
@@ -552,7 +571,7 @@ svg.each(function(matrix, j) {
     // Add the element group arc
     elementGroups.append('svg:path')
         .style('fill', function(d, i) {
-            return elementFill(d.index);
+            return elements[i].color;
         })
         .attr('id', function(d, i) {
             return 'element-group-main' + d.index + '-' + j;
@@ -581,9 +600,7 @@ svg.each(function(matrix, j) {
         .enter()
         .append('svg:path')
         .style('fill', function(d, i) {
-            // temporary add d just to render grey color for the chords instead
-            return indicatorFill(d);
-
+            return elements[(data[d.source.index].element) - 1].color;
         })
         .attr('class', 'chord')
         .attr('d', chord)
