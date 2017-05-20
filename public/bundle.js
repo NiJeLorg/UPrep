@@ -59,23 +59,23 @@
 	var elements = [{
 	    element: 'Culture of High Expectations',
 	    id: '1',
-	    color: '#62A0CA'
+	    color: '#F1C232'
 	}, {
 	    element: 'Demanding Curriculum',
 	    id: '2',
-	    color: '#FFA556'
+	    color: '#E69138'
 	}, {
 	    element: 'Engaging Instruction',
 	    id: '3',
-	    color: '#6BBC6B'
+	    color: '#45818E'
 	}, {
 	    element: 'Rigorous Assessments',
 	    id: '4',
-	    color: '#E26868'
+	    color: '#674EA7'
 	}, {
 	    element: 'Shared Leadership',
 	    id: '5',
-	    color: '#B495D1'
+	    color: '#6AA84F'
 	}];
 	
 	var components = [{
