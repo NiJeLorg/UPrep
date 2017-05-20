@@ -1,15 +1,17 @@
 .indicator-group text,
-.area-group text {
-    font: 9px sans-serif;
+.component-group text,
+.element-group text
+ {
+    font: 9px Futura, sans-serif;
     pointer-events: none;
 }
 
-.indicator-group path,
-.area-group path {
+.indicator-group path {
     fill-opacity: 0.7;
 }
 
-.area-group path {
+.component-group path,
+.element-group path {
     fill-opacity: 0.5;
 }
 
@@ -23,14 +25,22 @@ path.chord {
     justify-content: center;
 }
 
-.area-group-main {
-    font: 15px sans-serif;
+.component-group-main, 
+.element-group-main {
     pointer-events: none;
     fill-opacity: 0.7;
 }
 
+.component-group-main {
+    font: 12px Futura, sans-serif;
+}
+
+.element-group-main {
+    font: 15px Futura, sans-serif;
+}
+
 body h2 {
-    font-family: sans-serif;
+    font-family: Futura, sans-serif;
     text-align: center;
     margin: 20px 0;
 }
