@@ -428,7 +428,7 @@ const fade = (opacity) => {
 
 let width, height;
 
-width = height = window.innerWidth * .4;
+width = height = window.innerHeight * 0.97;
 
 
 const outerRadius = Math.min(width, height) / 2 - 20,

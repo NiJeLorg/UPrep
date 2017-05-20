@@ -428,7 +428,7 @@
 	var width = void 0,
 	    height = void 0;
 	
-	width = height = window.innerWidth * .4;
+	width = height = window.innerHeight * 0.97;
 	
 	var outerRadius = Math.min(width, height) / 2 - 20,
 	    innerRadius = outerRadius - 20,
