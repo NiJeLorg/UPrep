@@ -471,15 +471,15 @@ const elementLayout = d3.layout.chord()
     .padding(0);
 
 const componentArc = d3.svg.arc()
-    .innerRadius(outerRadius - 120)
+    .innerRadius(outerRadius - 100)
     .outerRadius(outerRadius - 30);
 
 const componentLayout = d3.layout.chord()
     .padding(0);
 
 const indicatorArc = d3.svg.arc()
-    .innerRadius(outerRadius - 260)
-    .outerRadius(outerRadius - 120)
+    .innerRadius(outerRadius - 200)
+    .outerRadius(outerRadius - 100)
     .startAngle(function(d, i) {
         return angle(d.index);
     })
@@ -491,7 +491,7 @@ const indicatorLayout = d3.layout.chord()
     .padding(0);
 
 const chord = d3.svg.chord()
-    .radius(outerRadius - 260)
+    .radius(outerRadius - 200)
     .startAngle(function(d, i) {
         return angle(d.index) + (angle.rangeBand() / 2) - 0.025;
     })
@@ -582,14 +582,12 @@ svg.each(function(matrix, j) {
     // add component names
     componentGroups.append('svg:text')
         .attr('x', 0)
-        .attr('dy', 45)
+        .attr('dy', 35)
         .attr('font-size', function(d, i){
             if (components[i].id == 7 || components[i].id == 8 || components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12) {
-                return 14
-            } else if (components[i].id == 15) {
-                return 11.5
+                return 11
             } else {
-                return 18
+                return 14
             }
         })
         .append('svg:textPath')
@@ -616,23 +614,31 @@ svg.each(function(matrix, j) {
             return '#component-group-main' + d.index + '-' + j;
         })
         .text(function(d, i) {
-            if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8)
+            if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8 && components[i].id != 15)
             return components[i].component;
         });
 
     componentGroups.append('svg:text')
         .attr("dy", 0)
-        .attr('font-size', 12)
-        .attr("transform", function(d) { 
-            return "rotate(" + (((d.startAngle) * 180 + 8) / Math.PI - 90) + ") translate(" + (outerRadius-120) + ",0)"; 
+        .attr('font-size', 10)
+        .attr("transform", function(d, i) {
+            var addToAngle;
+            if (components[i].id == 7) {
+                addToAngle = 30; 
+            } else if (components[i].id == 8 || components[i].id == 15) {
+                addToAngle = 25; 
+            } else {
+                addToAngle = 8; 
+            }
+            return "rotate(" + (((d.startAngle) * 180 + addToAngle) / Math.PI - 90) + ") translate(" + (outerRadius-100) + ",0)"; 
         })
         .text(function(d, i) {
-            if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8) {
+            if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8 || components[i].id == 15) {
                 return components[i].component;
             }
             
         })
-        .call(wrap, 82);
+        .call(wrap, 62);
 
     // add element groups
     var elementGroups = svg.selectAll('g.element-group-main')
@@ -691,15 +697,14 @@ svg.each(function(matrix, j) {
 
     // add faculty names
     indicatorGroups.append('svg:text')
-        .attr("x", 8)
-        .attr("dy", "0em")
-        .attr('font-size', 12)
+        .attr("dy", 0)
+        .attr('font-size', 10)
         .attr("transform", function(d) { 
-            return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius-260) + ",0)"; 
+            return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius-200) + ",0)"; 
         })
         .text(function(d, i) {
             return data[i].id;
         })
-        .call(wrap, 126);
+        .call(wrap, 90);
 
 });
