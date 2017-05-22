@@ -425,6 +425,31 @@
 	    };
 	};
 	
+	var wrap = function wrap(text, width) {
+	    text.each(function () {
+	        var text = d3.select(this),
+	            words = text.text().split(/\s+/).reverse(),
+	            word,
+	            line = [],
+	            lineNumber = 0,
+	            lineHeight = 12.0,
+	            // px
+	        y = text.attr("y"),
+	            dy = parseFloat(text.attr("dy")),
+	            tspan = text.text(null).append("tspan").attr("x", 5).attr("y", y).attr("dy", dy);
+	        while (word = words.pop()) {
+	            line.push(word);
+	            tspan.text(line.join(" "));
+	            if (tspan.node().getComputedTextLength() > width) {
+	                line.pop();
+	                tspan.text(line.join(" "));
+	                line = [word];
+	                tspan = text.append("tspan").attr("x", 5).attr("y", y).attr("dy", lineHeight + dy).text(word);
+	            }
+	        }
+	    });
+	};
+	
 	var width = void 0,
 	    height = void 0;
 	
@@ -440,11 +465,11 @@
 	
 	var elementLayout = d3.layout.chord().padding(0);
 	
-	var componentArc = d3.svg.arc().innerRadius(outerRadius - 50).outerRadius(outerRadius - 29);
+	var componentArc = d3.svg.arc().innerRadius(outerRadius - 120).outerRadius(outerRadius - 30);
 	
 	var componentLayout = d3.layout.chord().padding(0);
 	
-	var indicatorArc = d3.svg.arc().innerRadius(outerRadius - 100).outerRadius(outerRadius - 49).startAngle(function (d, i) {
+	var indicatorArc = d3.svg.arc().innerRadius(outerRadius - 260).outerRadius(outerRadius - 120).startAngle(function (d, i) {
 	    return angle(d.index);
 	}).endAngle(function (d, i) {
 	    return angle(d.index) + angle.rangeBand();
@@ -452,7 +477,7 @@
 	
 	var indicatorLayout = d3.layout.chord().padding(0);
 	
-	var chord = d3.svg.chord().radius(outerRadius - 100).startAngle(function (d, i) {
+	var chord = d3.svg.chord().radius(outerRadius - 260).startAngle(function (d, i) {
 	    return angle(d.index) + angle.rangeBand() / 2 - 0.025;
 	}).endAngle(function (d, i) {
 	    return angle(d.index) + angle.rangeBand() / 2 + 0.025;
@@ -502,11 +527,44 @@
 	    });
 	
 	    // add component names
-	    componentGroups.append('svg:text').attr('x', 6).attr('dy', 15).append('svg:textPath').attr('xlink:href', function (d) {
+	    componentGroups.append('svg:text').attr('x', 0).attr('dy', 45).attr('font-size', function (d, i) {
+	        if (components[i].id == 7 || components[i].id == 8 || components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12) {
+	            return 14;
+	        } else if (components[i].id == 15) {
+	            return 11.5;
+	        } else {
+	            return 18;
+	        }
+	    }).append('svg:textPath').attr("startOffset", function (d, i) {
+	        console.log(d.endAngle - d.startAngle);
+	        if (components[i].id == 9 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
+	            return '1%';
+	        } else if (components[i].id == 10) {
+	            return '2.5%';
+	        } else if (d.endAngle - d.startAngle > 0.5) {
+	            return "20.5%";
+	        } else {
+	            return "18%";
+	        }
+	    }).style("text-anchor", function (d, i) {
+	        if (components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
+	            return 'start';
+	        } else {
+	            return "middle";
+	        }
+	    }).attr('xlink:href', function (d) {
 	        return '#component-group-main' + d.index + '-' + j;
 	    }).text(function (d, i) {
-	        return components[i].component;
+	        if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8) return components[i].component;
 	    });
+	
+	    componentGroups.append('svg:text').attr("dy", 0).attr('font-size', 12).attr("transform", function (d) {
+	        return "rotate(" + ((d.startAngle * 180 + 8) / Math.PI - 90) + ") translate(" + (outerRadius - 120) + ",0)";
+	    }).text(function (d, i) {
+	        if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8) {
+	            return components[i].component;
+	        }
+	    }).call(wrap, 82);
 	
 	    // add element groups
 	    var elementGroups = svg.selectAll('g.element-group-main').data(elementLayout.groups).enter().append('svg:g').attr('class', 'element-group-main');
@@ -521,7 +579,7 @@
 	    });
 	
 	    // add element names
-	    elementGroups.append('svg:text').attr('x', 6).attr('dy', 20).append('svg:textPath').attr('xlink:href', function (d) {
+	    elementGroups.append('svg:text').attr('x', 6).attr('dy', 20).attr('font-size', 20).append('svg:textPath').attr("startOffset", '22.5%').style("text-anchor", "middle").attr('xlink:href', function (d) {
 	        return '#element-group-main' + d.index + '-' + j;
 	    }).text(function (d, i) {
 	        return elements[i].element;
@@ -531,7 +589,7 @@
 	    svg.selectAll('path.chord').data(indicatorLayout.chords).enter().append('svg:path').style('fill', function (d, i) {
 	        return elements[data[d.source.index].element - 1].color;
 	    }).attr('class', 'chord').attr('d', chord).append('svg:title').text(function (d) {
-	        var title = data[d.source.index].id + ' and ' + data[d.target.index].id + ": " + d.source.value + " plan";
+	        var title = data[d.source.index].id + ' => ' + data[d.target.index].id;
 	        if (d.source.value > 1) {
 	            title = title + 's';
 	        }
@@ -539,11 +597,11 @@
 	    });
 	
 	    // add faculty names
-	    indicatorGroups.append('svg:text').attr('x', 6).attr('dy', 15).append('svg:textPath').attr("xlink:href", function (d) {
-	        return "#indicator-group" + d.index + "-" + j;
+	    indicatorGroups.append('svg:text').attr("x", 8).attr("dy", "0em").attr('font-size', 12).attr("transform", function (d) {
+	        return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius - 260) + ",0)";
 	    }).text(function (d, i) {
 	        return data[i].id;
-	    });
+	    }).call(wrap, 126);
 	});
 
 /***/ }),

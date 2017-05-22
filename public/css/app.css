@@ -1,7 +1,7 @@
 .indicator-group text,
 .component-group text,
 .element-group text {
-  font: 9px sans-serif;
+  font-family: 'Nunito', sans-serif;
   pointer-events: none; }
 
 .indicator-group path {
@@ -25,12 +25,12 @@ path.chord {
   fill-opacity: 0.7; }
 
 .component-group-main {
-  font: 12px sans-serif; }
+  font-family: 'Nunito', sans-serif; }
 
 .element-group-main {
-  font: 15px sans-serif; }
+  font-family: 'Nunito', sans-serif; }
 
 body h2 {
-  font-family: sans-serif;
+  font-family: 'Nunito', sans-serif;
   text-align: center;
   margin: 20px 0; }
