@@ -418,10 +418,20 @@
 	});
 	
 	var fade = function fade(opacity) {
-	    return function (d, i) {
-	        svg.selectAll('path.chord').filter(function (d) {
-	            return d.source.index != i && d.target.index != i;
-	        }).transition().style('stroke-opacity', opacity).style('fill-opacity', opacity);
+	    return function (obj, i) {
+	        if (obj.value === 0) {
+	            svg.selectAll('path.chord').style('opacity', 0);
+	        } else {
+	            svg.selectAll('path.chord').style('opacity', 1);
+	
+	            svg.selectAll('path.chord').filter(function (d) {
+	                if (d.source.index === i) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }).transition().style('stroke-opacity', opacity).style('fill-opacity', opacity);
+	        }
 	    };
 	};
 	
@@ -499,7 +509,7 @@
 	    componentLayout.matrix(componentMatrix);
 	    elementLayout.matrix(elementMatrix);
 	
-	    var indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', fade(0.05)).on('mouseout', fade(0.80));
+	    var indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', fade(0)).on('mouseout', fade(0.80));
 	
 	    indicatorGroups.append('svg:path')
 	    // .style('fill', function(d, i) {
@@ -534,7 +544,6 @@
 	            return 14;
 	        }
 	    }).append('svg:textPath').attr("startOffset", function (d, i) {
-	        console.log(d.endAngle - d.startAngle);
 	        if (components[i].id == 9 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
 	            return '1%';
 	        } else if (components[i].id == 10) {

@@ -414,39 +414,54 @@ elements.forEach(function(element) {
 
 
 const fade = (opacity) => {
-    return function(d, i) {
-        svg.selectAll('path.chord')
-            .filter(function(d) {
-                return d.source.index != i && d.target.index != i;
-            })
-            .transition()
-            .style('stroke-opacity', opacity)
-            .style('fill-opacity', opacity);
+    return (obj, i) => {
+        if (obj.value === 0) {
+            svg.selectAll('path.chord')
+                .style('opacity', 0);
+        } else {
+            svg.selectAll('path.chord')
+                .style('opacity', 1);
+
+            svg.selectAll('path.chord')
+                .filter(function(d) {
+                    if (d.source.index === i) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+                .transition()
+                .style('stroke-opacity', opacity)
+                .style('fill-opacity', opacity);
+        }
+
     };
 };
 
+
+
 const wrap = (text, width) => {
-  text.each(function() {
-    var text = d3.select(this),
-        words = text.text().split(/\s+/).reverse(),
-        word,
-        line = [],
-        lineNumber = 0,
-        lineHeight = 12.0, // px
-        y = text.attr("y"),
-        dy = parseFloat(text.attr("dy")),
-        tspan = text.text(null).append("tspan").attr("x", 5).attr("y", y).attr("dy", dy);
-    while (word = words.pop()) {
-      line.push(word);
-      tspan.text(line.join(" "));
-      if (tspan.node().getComputedTextLength() > width) {
-        line.pop();
-        tspan.text(line.join(" "));
-        line = [word];
-        tspan = text.append("tspan").attr("x", 5).attr("y", y).attr("dy",lineHeight + dy).text(word);
-      }
-    }
-  });   
+    text.each(function() {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 12.0, // px
+            y = text.attr("y"),
+            dy = parseFloat(text.attr("dy")),
+            tspan = text.text(null).append("tspan").attr("x", 5).attr("y", y).attr("dy", dy);
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan").attr("x", 5).attr("y", y).attr("dy", lineHeight + dy).text(word);
+            }
+        }
+    });
 }
 
 
@@ -532,7 +547,7 @@ svg.each(function(matrix, j) {
         .enter()
         .append('svg:g')
         .attr('class', 'indicator-group')
-        .on('mouseover', fade(0.05))
+        .on('mouseover', fade(0))
         .on('mouseout', fade(0.80));
 
 
@@ -583,7 +598,7 @@ svg.each(function(matrix, j) {
     componentGroups.append('svg:text')
         .attr('x', 0)
         .attr('dy', 35)
-        .attr('font-size', function(d, i){
+        .attr('font-size', function(d, i) {
             if (components[i].id == 7 || components[i].id == 8 || components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12) {
                 return 11
             } else {
@@ -591,8 +606,7 @@ svg.each(function(matrix, j) {
             }
         })
         .append('svg:textPath')
-        .attr("startOffset", function(d, i){
-            console.log(d.endAngle - d.startAngle);
+        .attr("startOffset", function(d, i) {
             if (components[i].id == 9 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
                 return '1%'
             } else if (components[i].id == 10) {
@@ -603,7 +617,7 @@ svg.each(function(matrix, j) {
                 return "18%"
             }
         })
-        .style("text-anchor", function(d, i){
+        .style("text-anchor", function(d, i) {
             if (components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
                 return 'start'
             } else {
@@ -615,7 +629,7 @@ svg.each(function(matrix, j) {
         })
         .text(function(d, i) {
             if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8 && components[i].id != 15)
-            return components[i].component;
+                return components[i].component;
         });
 
     componentGroups.append('svg:text')
@@ -624,19 +638,19 @@ svg.each(function(matrix, j) {
         .attr("transform", function(d, i) {
             var addToAngle;
             if (components[i].id == 7) {
-                addToAngle = 30; 
+                addToAngle = 30;
             } else if (components[i].id == 8 || components[i].id == 15) {
-                addToAngle = 25; 
+                addToAngle = 25;
             } else {
-                addToAngle = 8; 
+                addToAngle = 8;
             }
-            return "rotate(" + (((d.startAngle) * 180 + addToAngle) / Math.PI - 90) + ") translate(" + (outerRadius-100) + ",0)"; 
+            return "rotate(" + (((d.startAngle) * 180 + addToAngle) / Math.PI - 90) + ") translate(" + (outerRadius - 100) + ",0)";
         })
         .text(function(d, i) {
             if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8 || components[i].id == 15) {
                 return components[i].component;
             }
-            
+
         })
         .call(wrap, 62);
 
@@ -699,8 +713,8 @@ svg.each(function(matrix, j) {
     indicatorGroups.append('svg:text')
         .attr("dy", 0)
         .attr('font-size', 10)
-        .attr("transform", function(d) { 
-            return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius-200) + ",0)"; 
+        .attr("transform", function(d) {
+            return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius - 200) + ",0)";
         })
         .text(function(d, i) {
             return data[i].id;
