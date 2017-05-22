@@ -425,6 +425,30 @@ const fade = (opacity) => {
     };
 };
 
+const wrap = (text, width) => {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 12.0, // px
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 5).attr("y", y).attr("dy", dy);
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", 5).attr("y", y).attr("dy",lineHeight + dy).text(word);
+      }
+    }
+  });   
+}
+
 
 let width, height;
 
@@ -447,15 +471,15 @@ const elementLayout = d3.layout.chord()
     .padding(0);
 
 const componentArc = d3.svg.arc()
-    .innerRadius(outerRadius - 50)
-    .outerRadius(outerRadius - 29);
+    .innerRadius(outerRadius - 120)
+    .outerRadius(outerRadius - 30);
 
 const componentLayout = d3.layout.chord()
     .padding(0);
 
 const indicatorArc = d3.svg.arc()
-    .innerRadius(outerRadius - 100)
-    .outerRadius(outerRadius - 49)
+    .innerRadius(outerRadius - 260)
+    .outerRadius(outerRadius - 120)
     .startAngle(function(d, i) {
         return angle(d.index);
     })
@@ -467,7 +491,7 @@ const indicatorLayout = d3.layout.chord()
     .padding(0);
 
 const chord = d3.svg.chord()
-    .radius(outerRadius - 100)
+    .radius(outerRadius - 260)
     .startAngle(function(d, i) {
         return angle(d.index) + (angle.rangeBand() / 2) - 0.025;
     })
@@ -479,6 +503,8 @@ const chord = d3.svg.chord()
 const indicatorFill = d3.scale.category20c();
 const componentFill = d3.scale.category10();
 const elementFill = d3.scale.category10();
+
+
 
 // attach svg object to the content well
 var svg = d3.select('.svg-holder').selectAll('div')
@@ -555,15 +581,58 @@ svg.each(function(matrix, j) {
 
     // add component names
     componentGroups.append('svg:text')
-        .attr('x', 6)
-        .attr('dy', 15)
+        .attr('x', 0)
+        .attr('dy', 45)
+        .attr('font-size', function(d, i){
+            if (components[i].id == 7 || components[i].id == 8 || components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12) {
+                return 14
+            } else if (components[i].id == 15) {
+                return 11.5
+            } else {
+                return 18
+            }
+        })
         .append('svg:textPath')
+        .attr("startOffset", function(d, i){
+            console.log(d.endAngle - d.startAngle);
+            if (components[i].id == 9 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
+                return '1%'
+            } else if (components[i].id == 10) {
+                return '2.5%'
+            } else if ((d.endAngle - d.startAngle) > 0.5) {
+                return "20.5%"
+            } else {
+                return "18%"
+            }
+        })
+        .style("text-anchor", function(d, i){
+            if (components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12 || components[i].id == 15) {
+                return 'start'
+            } else {
+                return "middle"
+            }
+        })
         .attr('xlink:href', function(d) {
             return '#component-group-main' + d.index + '-' + j;
         })
         .text(function(d, i) {
+            if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8)
             return components[i].component;
         });
+
+    componentGroups.append('svg:text')
+        .attr("dy", 0)
+        .attr('font-size', 12)
+        .attr("transform", function(d) { 
+            return "rotate(" + (((d.startAngle) * 180 + 8) / Math.PI - 90) + ") translate(" + (outerRadius-120) + ",0)"; 
+        })
+        .text(function(d, i) {
+            if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8) {
+                return components[i].component;
+            }
+            
+        })
+        .call(wrap, 82);
 
     // add element groups
     var elementGroups = svg.selectAll('g.element-group-main')
@@ -590,7 +659,10 @@ svg.each(function(matrix, j) {
     elementGroups.append('svg:text')
         .attr('x', 6)
         .attr('dy', 20)
+        .attr('font-size', 20)
         .append('svg:textPath')
+        .attr("startOffset", '22.5%')
+        .style("text-anchor", "middle")
         .attr('xlink:href', function(d) {
             return '#element-group-main' + d.index + '-' + j;
         })
@@ -610,7 +682,7 @@ svg.each(function(matrix, j) {
         .attr('d', chord)
         .append('svg:title')
         .text(function(d) {
-            var title = data[d.source.index].id + ' and ' + data[d.target.index].id + ": " + d.source.value + " plan";
+            var title = data[d.source.index].id + ' => ' + data[d.target.index].id;
             if (d.source.value > 1) {
                 title = title + 's';
             }
@@ -619,14 +691,15 @@ svg.each(function(matrix, j) {
 
     // add faculty names
     indicatorGroups.append('svg:text')
-        .attr('x', 6)
-        .attr('dy', 15)
-        .append('svg:textPath')
-        .attr("xlink:href", function(d) {
-            return "#indicator-group" + d.index + "-" + j;
+        .attr("x", 8)
+        .attr("dy", "0em")
+        .attr('font-size', 12)
+        .attr("transform", function(d) { 
+            return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius-260) + ",0)"; 
         })
         .text(function(d, i) {
             return data[i].id;
-        });
+        })
+        .call(wrap, 126);
 
 });

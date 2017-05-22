@@ -2,7 +2,7 @@
 .component-group text,
 .element-group text
  {
-    font: 9px Futura, sans-serif;
+    font-family: 'Nunito', sans-serif;
     pointer-events: none;
 }
 
@@ -32,15 +32,15 @@ path.chord {
 }
 
 .component-group-main {
-    font: 12px Futura, sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 .element-group-main {
-    font: 15px Futura, sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 body h2 {
-    font-family: Futura, sans-serif;
+    font-family: 'Nunito', sans-serif;
     text-align: center;
     margin: 20px 0;
 }
