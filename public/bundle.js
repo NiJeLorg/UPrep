@@ -465,11 +465,11 @@
 	
 	var elementLayout = d3.layout.chord().padding(0);
 	
-	var componentArc = d3.svg.arc().innerRadius(outerRadius - 120).outerRadius(outerRadius - 30);
+	var componentArc = d3.svg.arc().innerRadius(outerRadius - 100).outerRadius(outerRadius - 30);
 	
 	var componentLayout = d3.layout.chord().padding(0);
 	
-	var indicatorArc = d3.svg.arc().innerRadius(outerRadius - 260).outerRadius(outerRadius - 120).startAngle(function (d, i) {
+	var indicatorArc = d3.svg.arc().innerRadius(outerRadius - 200).outerRadius(outerRadius - 100).startAngle(function (d, i) {
 	    return angle(d.index);
 	}).endAngle(function (d, i) {
 	    return angle(d.index) + angle.rangeBand();
@@ -477,7 +477,7 @@
 	
 	var indicatorLayout = d3.layout.chord().padding(0);
 	
-	var chord = d3.svg.chord().radius(outerRadius - 260).startAngle(function (d, i) {
+	var chord = d3.svg.chord().radius(outerRadius - 200).startAngle(function (d, i) {
 	    return angle(d.index) + angle.rangeBand() / 2 - 0.025;
 	}).endAngle(function (d, i) {
 	    return angle(d.index) + angle.rangeBand() / 2 + 0.025;
@@ -527,13 +527,11 @@
 	    });
 	
 	    // add component names
-	    componentGroups.append('svg:text').attr('x', 0).attr('dy', 45).attr('font-size', function (d, i) {
+	    componentGroups.append('svg:text').attr('x', 0).attr('dy', 35).attr('font-size', function (d, i) {
 	        if (components[i].id == 7 || components[i].id == 8 || components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12) {
-	            return 14;
-	        } else if (components[i].id == 15) {
-	            return 11.5;
+	            return 11;
 	        } else {
-	            return 18;
+	            return 14;
 	        }
 	    }).append('svg:textPath').attr("startOffset", function (d, i) {
 	        console.log(d.endAngle - d.startAngle);
@@ -555,16 +553,24 @@
 	    }).attr('xlink:href', function (d) {
 	        return '#component-group-main' + d.index + '-' + j;
 	    }).text(function (d, i) {
-	        if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8) return components[i].component;
+	        if (components[i].id != 4 && components[i].id != 6 && components[i].id != 7 && components[i].id != 8 && components[i].id != 15) return components[i].component;
 	    });
 	
-	    componentGroups.append('svg:text').attr("dy", 0).attr('font-size', 12).attr("transform", function (d) {
-	        return "rotate(" + ((d.startAngle * 180 + 8) / Math.PI - 90) + ") translate(" + (outerRadius - 120) + ",0)";
+	    componentGroups.append('svg:text').attr("dy", 0).attr('font-size', 10).attr("transform", function (d, i) {
+	        var addToAngle;
+	        if (components[i].id == 7) {
+	            addToAngle = 30;
+	        } else if (components[i].id == 8 || components[i].id == 15) {
+	            addToAngle = 25;
+	        } else {
+	            addToAngle = 8;
+	        }
+	        return "rotate(" + ((d.startAngle * 180 + addToAngle) / Math.PI - 90) + ") translate(" + (outerRadius - 100) + ",0)";
 	    }).text(function (d, i) {
-	        if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8) {
+	        if (components[i].id == 4 || components[i].id == 6 || components[i].id == 7 || components[i].id == 8 || components[i].id == 15) {
 	            return components[i].component;
 	        }
-	    }).call(wrap, 82);
+	    }).call(wrap, 62);
 	
 	    // add element groups
 	    var elementGroups = svg.selectAll('g.element-group-main').data(elementLayout.groups).enter().append('svg:g').attr('class', 'element-group-main');
@@ -597,11 +603,11 @@
 	    });
 	
 	    // add faculty names
-	    indicatorGroups.append('svg:text').attr("x", 8).attr("dy", "0em").attr('font-size', 12).attr("transform", function (d) {
-	        return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius - 260) + ",0)";
+	    indicatorGroups.append('svg:text').attr("dy", 0).attr('font-size', 10).attr("transform", function (d) {
+	        return "rotate(" + ((angle(d.index) * 180 + 12) / Math.PI - 90) + ") translate(" + (outerRadius - 200) + ",0)";
 	    }).text(function (d, i) {
 	        return data[i].id;
-	    }).call(wrap, 126);
+	    }).call(wrap, 90);
 	});
 
 /***/ }),
