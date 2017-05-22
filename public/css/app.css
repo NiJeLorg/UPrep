@@ -21,7 +21,6 @@ path.chord {
 
 .component-group-main,
 .element-group-main {
-  pointer-events: none;
   fill-opacity: 0.7; }
 
 .component-group-main {

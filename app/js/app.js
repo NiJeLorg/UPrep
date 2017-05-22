@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import * as $ from 'jQuery';
 
 const elements = [{
     element: 'Culture of High Expectations',
@@ -342,21 +341,6 @@ const data = [{
 }, ];
 
 
-
-const indicatorsWithoutConnection = [];
-
-const findNodesWithoutConnection = () => {
-    data.forEach((indicator) => {
-        if (indicator.plans < 1) {
-            indicatorsWithoutConnection.push(indicator);
-        }
-    });
-};
-
-
-findNodesWithoutConnection();
-
-
 var indicators = [],
     indicatorObj = {};
 for (var i = 0; i < data.length; i++) {
@@ -434,11 +418,44 @@ const fade = (opacity) => {
                 .style('stroke-opacity', opacity)
                 .style('fill-opacity', opacity);
         }
-
     };
 };
 
 
+
+const showCorrespondingIndicatorChordsComponent = (opacity) => {
+    return (component, index) => {
+
+        svg.selectAll('path.chord')
+            .filter((d, i) => {
+                if (components[index].id === data[d.source.index].component) {
+                    return false;
+                } else {
+                    return true;
+                }
+            })
+            .style('opacity', opacity);
+    };
+
+};
+
+
+
+const showCorrespondingIndicatorChordsElement = (opacity) => {
+    return (element, index) => {
+
+        svg.selectAll('path.chord')
+            .filter((d, i) => {
+                if (elements[index].id === data[d.source.index].element) {
+                    return false;
+                } else {
+                    return true;
+                }
+            })
+            .style('opacity', opacity);
+    };
+
+};
 
 const wrap = (text, width) => {
     text.each(function() {
@@ -448,27 +465,26 @@ const wrap = (text, width) => {
             line = [],
             lineNumber = 0,
             lineHeight = 12.0, // px
-            y = text.attr("y"),
-            dy = parseFloat(text.attr("dy")),
-            tspan = text.text(null).append("tspan").attr("x", 5).attr("y", y).attr("dy", dy);
+            y = text.attr('y'),
+            dy = parseFloat(text.attr('dy')),
+            tspan = text.text(null).append('tspan').attr('x', 5).attr('y', y).attr('dy', dy);
         while (word = words.pop()) {
             line.push(word);
-            tspan.text(line.join(" "));
+            tspan.text(line.join(' '));
             if (tspan.node().getComputedTextLength() > width) {
                 line.pop();
-                tspan.text(line.join(" "));
+                tspan.text(line.join(' '));
                 line = [word];
-                tspan = text.append("tspan").attr("x", 5).attr("y", y).attr("dy", lineHeight + dy).text(word);
+                tspan = text.append('tspan').attr('x', 5).attr('y', y).attr('dy', lineHeight + dy).text(word);
             }
         }
     });
-}
+};
 
 
 let width, height;
 
 width = height = window.innerHeight * 0.97;
-
 
 const outerRadius = Math.min(width, height) / 2 - 20,
     innerRadius = outerRadius - 20,
@@ -548,14 +564,10 @@ svg.each(function(matrix, j) {
         .append('svg:g')
         .attr('class', 'indicator-group')
         .on('mouseover', fade(0))
-        .on('mouseout', fade(0.80));
+        .on('mouseout', fade(1));
 
 
     indicatorGroups.append('svg:path')
-        // .style('fill', function(d, i) {
-        //     colors.push(indicatorFill(i));
-        //     return indicatorFill(i);
-        // })
         .style('fill', 'white')
         .style('stroke', 'grey')
         .style('stroke-width', '1')
@@ -574,13 +586,12 @@ svg.each(function(matrix, j) {
         .data(componentLayout.groups)
         .enter()
         .append('svg:g')
-        .attr('class', 'component-group-main');
+        .attr('class', 'component-group-main')
+        .on('mouseover', showCorrespondingIndicatorChordsComponent(0))
+        .on('mouseout', showCorrespondingIndicatorChordsComponent(1));
 
     // Add the component group arc
     componentGroups.append('svg:path')
-        // .style('fill', function(d, i) {
-        //     return componentFill(d.index);
-        // })
         .style('fill', 'white')
         .style('stroke', 'grey')
         .style('stroke-width', '1')
@@ -659,7 +670,9 @@ svg.each(function(matrix, j) {
         .data(elementLayout.groups)
         .enter()
         .append('svg:g')
-        .attr('class', 'element-group-main');
+        .attr('class', 'element-group-main')
+        .on('mouseover', showCorrespondingIndicatorChordsElement(0))
+        .on('mouseout', showCorrespondingIndicatorChordsElement(1))
 
     // Add the element group arc
     elementGroups.append('svg:path')
