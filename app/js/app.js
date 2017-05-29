@@ -396,8 +396,8 @@ elements.forEach(function(element) {
     });
 });
 
-
 const fade = (opacity) => {
+
     return (obj, i) => {
         if (obj.value === 0) {
             svg.selectAll('path.chord')
@@ -405,7 +405,6 @@ const fade = (opacity) => {
         } else {
             svg.selectAll('path.chord')
                 .style('opacity', 1);
-
             svg.selectAll('path.chord')
                 .filter(function(d) {
                     if (d.source.index === i) {
@@ -420,6 +419,119 @@ const fade = (opacity) => {
         }
     };
 };
+
+
+const makeOutlineBolderIndicator = (state) => {
+    return (d, i) => {
+
+        if (state) {
+
+            d3.selectAll('.indicator-group > path')
+                .filter((d) => {
+                    if (d.index === i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .transition()
+                .style('fill', '#eaeaea')
+                .style('stroke-width', '2');
+        } else {
+            d3.selectAll('.indicator-group > path')
+                .filter((d) => {
+                    if (d.index === i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .transition()
+                .style('stroke-width', '1')
+                .style('fill', '#fff');
+        }
+
+
+    };
+
+};
+
+
+const makeOutlineBolderComponent = (state) => {
+    return (d, i) => {
+
+        if (state) {
+
+            d3.selectAll('.component-group-main > path')
+                .filter((d) => {
+                    if (d.index === i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .transition()
+                .style('fill', '#eaeaea')
+                .style('stroke-width', '2');
+        } else {
+            d3.selectAll('.component-group-main > path')
+                .filter((d) => {
+                    if (d.index === i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .transition()
+                .style('fill', '#fff')
+                .style('stroke-width', '1');
+        }
+
+
+    };
+
+};
+
+
+const makeOutlineBolderElement = (state) => {
+    return (d, i) => {
+
+        if (state) {
+
+            d3.selectAll('.element-group-main > path')
+                .filter((d) => {
+                    if (d.index === i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .transition()
+                .style('fill-opacity', '1')
+                .style('font-weight', 'bolder');
+        } else {
+            d3.selectAll('.element-group-main > path')
+                .filter((d) => {
+                    if (d.index === i) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .transition()
+                .style('fill-opacity', '0.7')
+                .style('font-weight', 'regular');
+        }
+
+
+    };
+
+};
+
+
+
+
+
 
 
 
@@ -571,6 +683,8 @@ svg.each(function(matrix, j) {
         .style('fill', 'white')
         .style('stroke', 'grey')
         .style('stroke-width', '1')
+        .on('mouseover', makeOutlineBolderIndicator(1))
+        .on('mouseout', makeOutlineBolderIndicator(0))
         .attr('id', function(d, i) {
             return 'indicator-group' + d.index + '-' + j;
         })
@@ -595,6 +709,8 @@ svg.each(function(matrix, j) {
         .style('fill', 'white')
         .style('stroke', 'grey')
         .style('stroke-width', '1')
+        .on('mouseover', makeOutlineBolderComponent(1))
+        .on('mouseout', makeOutlineBolderComponent(0))
         .attr('id', function(d, i) {
             return 'component-group-main' + d.index + '-' + j;
         })
@@ -679,6 +795,8 @@ svg.each(function(matrix, j) {
         .style('fill', function(d, i) {
             return elements[i].color;
         })
+        .on('mouseover', makeOutlineBolderElement(1))
+        .on('mouseout', makeOutlineBolderElement(0))
         .attr('id', function(d, i) {
             return 'element-group-main' + d.index + '-' + j;
         })

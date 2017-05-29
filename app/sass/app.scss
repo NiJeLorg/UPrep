@@ -1,9 +1,10 @@
 .indicator-group text,
-.component-group text,
-.element-group text {
+.component-group-main text,
+.element-group-main text {
     font-family: 'Nunito', sans-serif;
     pointer-events: none;
 }
+
 
 .indicator-group path {
     fill-opacity: 0.7;
