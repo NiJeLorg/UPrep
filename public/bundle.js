@@ -140,22 +140,22 @@
 	    element: '1',
 	    component: '1',
 	    id: 'Grading',
-	    plans: ['Perserverance', 'Formative Assessments', 'Summative Assessments', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making']
+	    plans: [['Perserverance', '3'], ['Formative Assessments', '2'], ['Assesement Designs', '4'], ['Tasks', '0'], ['Feedback', '3'], ['Learning Target Reflection', '2'], ['Task Reflection', '3'], ['Data-Driven Decision Making', '4']]
 	}, {
 	    element: '1',
 	    component: '1',
 	    id: 'College-Going Culture',
-	    plans: ['Perserverance', 'Task Reflection']
+	    plans: [['Perserverance', '3'], ['Task Reflection', '0']]
 	}, {
 	    element: '1',
 	    component: '1',
 	    id: 'High-Quality Work',
-	    plans: ['Tasks', 'Task Reflection']
+	    plans: [['Tasks', '2'], ['Task Reflection', '4']]
 	}, {
 	    element: '1',
 	    component: '1',
 	    id: 'Timeliness and Preparation',
-	    plans: ['Tasks']
+	    plans: [['Tasks', '0']]
 	}, {
 	    element: '1',
 	    component: '2',
@@ -200,52 +200,52 @@
 	    element: '2',
 	    component: '4',
 	    id: 'Interconnectedness of Standards',
-	    plans: ['Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Differentiation', 'Summative Assessments', 'Assessment Design', 'Tasks']
+	    plans: [['Leveraging Learning Targets', '3'], ['Teacher as Facilitator', '3'], ['Peer Critique and Critical Thinking', '2'], ['Differentiation', '3'], ['Summative Assessments', '4'], ['Assessment Design', '4'], ['Tasks', '4']]
 	}, {
 	    element: '2',
 	    component: '5',
 	    id: 'Unit Planning',
-	    plans: ['Portfolio Passages', 'Tasks', 'Task Reflection']
+	    plans: [['Portfolio Passages', '2'], ['Tasks', '2'], ['Task Reflection', '3']]
 	}, {
 	    element: '2',
 	    component: '5',
 	    id: 'Learning Targets',
-	    plans: ['Student-Led Conferences', 'Leveraging Learning Targets', 'Summative Assessments', 'Formative Assessments', 'Tasks', 'Learning Target Reflection']
+	    plans: [['Student-Led Conferences', '3'], ['Leveraging Learning Targets', '4'], ['Summative Assessments', '2'], ['Formative Assessments', '4'], ['Tasks', '4'], ['Learning Target Reflection', '3']]
 	}, {
 	    element: '2',
 	    component: '5',
 	    id: 'Lesson Design',
-	    plans: ['Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions', 'Formative Assessments', 'Tasks']
+	    plans: [['Teacher as Facilitator', '2'], ['Modification in the Moment', '2'], ['Asking Questions', '4'], ['Formative Assessments', '2'], ['Tasks', '1']]
 	}, {
 	    element: '2',
 	    component: '5',
 	    id: 'Use of Protocols',
-	    plans: ['Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions']
+	    plans: [['Teacher as Facilitator', '3'], ['Modification in the Moment', '0'], ['Asking Questions', '4']]
 	}, {
 	    element: '2',
 	    component: '5',
 	    id: 'Reflection',
-	    plans: ['Collaborative Best Practices', 'Professional Growth']
+	    plans: [['Collaborative Best Practices', '4'], ['Professional Growth', '4']]
 	}, {
 	    element: '2',
 	    component: '6',
 	    id: 'Task Selection',
-	    plans: ['Student-Led Conferences', 'Portfolio Passages']
+	    plans: [['Student-Led Conferences', '1'], ['Portfolio Passages', '2']]
 	}, {
 	    element: '3',
 	    component: '7',
 	    id: 'Leveraging Learning Targets',
-	    plans: ['Feedback']
+	    plans: [['Feedback', '1']]
 	}, {
 	    element: '3',
 	    component: '7',
 	    id: 'Teacher as Facilitator',
-	    plans: ['Leveraging Crew']
+	    plans: [['Leveraging Crew', '1']]
 	}, {
 	    element: '3',
 	    component: '7',
 	    id: 'Peer Critique and Critical Thinking',
-	    plans: ['Feedback']
+	    plans: [['Feedback', '3']]
 	}, {
 	    element: '3',
 	    component: '8',
@@ -275,7 +275,7 @@
 	    element: '4',
 	    component: '10',
 	    id: 'Summative Assessments',
-	    plans: ['Reflection', 'Data-Driven Decision Making']
+	    plans: [['Reflection', '3'], ['Data-Driven Decision Making', '4']]
 	}, {
 	    element: '4',
 	    component: '10',
@@ -285,7 +285,7 @@
 	    element: '4',
 	    component: '10',
 	    id: 'Tasks',
-	    plans: ['Visible Environment', 'Student-Led Conferences', 'Use of Protocols', 'Task Selection', 'Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Modification in the Moment', 'Differentiation', 'Asking Questions', 'Perseverance']
+	    plans: [['Visible Environment', '3'], ['Student-Led Conferences', '4'], ['Use of Protocols', '4'], ['Task Selection', '4'], ['Leveraging Learning Targets', '2'], ['Teacher as Facilitator', '4'], ['Peer Critique and Critical Thinking', '4'], ['Modification in the Moment', '3'], ['Differentiation', '4'], ['Asking Questions', '3'], ['Perseverance', '4']]
 	}, {
 	    element: '4',
 	    component: '11',
@@ -295,12 +295,12 @@
 	    element: '4',
 	    component: '12',
 	    id: 'Learning Target Reflection',
-	    plans: ['Portfolio Passages', 'Perserverance']
+	    plans: [['Portfolio Passages', '3'], ['Perserverance', '3']]
 	}, {
 	    element: '4',
 	    component: '12',
 	    id: 'Task Reflection',
-	    plans: ['Internalizing Routines and Procedures', 'Self-evaluation', 'Student-Led conferences', 'Portfolio Passages']
+	    plans: [['Internalizing Routines and Procedures', '0'], ['Self-evaluation', '2'], ['Student-Led conferences', '4'], ['Portfolio Passages', '4']]
 	}, {
 	    element: '5',
 	    component: '13',
@@ -361,11 +361,13 @@
 	// populate the indicators matrix
 	data.forEach(function (indicator) {
 	    indicator.plans.forEach(function (similarInidcator) {
-	        if (indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator]] !== undefined) {
-	            indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator]] = 1;
+	        if (indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator[0]]] !== undefined) {
+	            indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator[0]]] = 1;
 	        }
 	    });
 	});
+	
+	console.log(indicators);
 	
 	// initialize square matrix for components and stash the unique id for each component
 	var componentMatrix = [],
@@ -401,20 +403,70 @@
 	    });
 	});
 	
-	var fade = function fade(opacity) {
+	var fade = function fade(state) {
 	
-	    return function (obj, i) {
-	        if (obj.value === 0) {
-	            svg.selectAll('path.chord').style('opacity', 0);
-	        } else {
-	            svg.selectAll('path.chord').style('opacity', 1);
-	            svg.selectAll('path.chord').filter(function (d) {
-	                if (d.source.index === i) {
+	    return function (indicator, index) {
+	        if (state) {
+	            svg.selectAll('path.chord').filter(function (d, i) {
+	                if (d.source.index === index) {
 	                    return false;
 	                } else {
 	                    return true;
 	                }
-	            }).transition().style('stroke-opacity', opacity).style('fill-opacity', opacity);
+	            }).transition().style('opacity', 1);
+	        } else {
+	            svg.selectAll('path.chord').filter(function (d, i) {
+	                if (d.source.index === index) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }).transition().style('opacity', 0.03);
+	        }
+	    };
+	};
+	
+	var showCorrespondingIndicatorChordsComponent = function showCorrespondingIndicatorChordsComponent(state) {
+	    return function (component, index) {
+	        if (state) {
+	            svg.selectAll('path.chord').filter(function (d, i) {
+	                if (components[index].id === data[d.source.index].component) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }).style('opacity', 1);
+	        } else {
+	            svg.selectAll('path.chord').filter(function (d, i) {
+	                if (components[index].id === data[d.source.index].component) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }).style('opacity', 0.03);
+	        }
+	    };
+	};
+	
+	var showCorrespondingIndicatorChordsElement = function showCorrespondingIndicatorChordsElement(state) {
+	    return function (element, index) {
+	
+	        if (state) {
+	            svg.selectAll('path.chord').filter(function (d, i) {
+	                if (elements[index].id === data[d.source.index].element) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }).style('opacity', 1);
+	        } else {
+	            svg.selectAll('path.chord').filter(function (d, i) {
+	                if (elements[index].id === data[d.source.index].element) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }).style('opacity', 0.03);
 	        }
 	    };
 	};
@@ -488,32 +540,6 @@
 	                }
 	            }).transition().style('fill-opacity', '0.7').style('font-weight', 'regular');
 	        }
-	    };
-	};
-	
-	var showCorrespondingIndicatorChordsComponent = function showCorrespondingIndicatorChordsComponent(opacity) {
-	    return function (component, index) {
-	
-	        svg.selectAll('path.chord').filter(function (d, i) {
-	            if (components[index].id === data[d.source.index].component) {
-	                return false;
-	            } else {
-	                return true;
-	            }
-	        }).style('opacity', opacity);
-	    };
-	};
-	
-	var showCorrespondingIndicatorChordsElement = function showCorrespondingIndicatorChordsElement(opacity) {
-	    return function (element, index) {
-	
-	        svg.selectAll('path.chord').filter(function (d, i) {
-	            if (elements[index].id === data[d.source.index].element) {
-	                return false;
-	            } else {
-	                return true;
-	            }
-	        }).style('opacity', opacity);
 	    };
 	};
 	

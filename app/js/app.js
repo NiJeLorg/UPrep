@@ -89,28 +89,37 @@ const data = [{
     component: '1',
     id: 'Grading',
     plans: [
-        'Perserverance', 'Formative Assessments', 'Summative Assessments', 'Assesement Designs', 'Tasks', 'Feedback', 'Learning Target Reflection', 'Task Reflection', ' Data-Driven Decision Making'
+        ['Perserverance', '3'],
+        ['Formative Assessments', '2'],
+        ['Assesement Designs', '4'],
+        ['Tasks', '0'],
+        ['Feedback', '3'],
+        ['Learning Target Reflection', '2'],
+        ['Task Reflection', '3'],
+        ['Data-Driven Decision Making', '4']
     ]
 }, {
     element: '1',
     component: '1',
     id: 'College-Going Culture',
     plans: [
-        'Perserverance', 'Task Reflection',
+        ['Perserverance', '3'],
+        ['Task Reflection', '0'],
     ]
 }, {
     element: '1',
     component: '1',
     id: 'High-Quality Work',
     plans: [
-        'Tasks', 'Task Reflection',
+        ['Tasks', '2'],
+        ['Task Reflection', '4'],
     ]
 }, {
     element: '1',
     component: '1',
     id: 'Timeliness and Preparation',
     plans: [
-        'Tasks'
+        ['Tasks', '0']
     ]
 }, {
     element: '1',
@@ -157,78 +166,91 @@ const data = [{
     component: '4',
     id: 'Interconnectedness of Standards',
     plans: [
-        'Leveraging Learning Targets',
-        'Teacher as Facilitator',
-        'Peer Critique and Critical Thinking',
-        'Differentiation',
-        'Summative Assessments',
-        'Assessment Design',
-        'Tasks'
+        ['Leveraging Learning Targets', '3'],
+        ['Teacher as Facilitator', '3'],
+        ['Peer Critique and Critical Thinking', '2'],
+        ['Differentiation', '3'],
+        ['Summative Assessments', '4'],
+        ['Assessment Design', '4'],
+        ['Tasks', '4']
     ]
 }, {
     element: '2',
     component: '5',
     id: 'Unit Planning',
     plans: [
-        'Portfolio Passages', 'Tasks', 'Task Reflection'
+        ['Portfolio Passages', '2'],
+        ['Tasks', '2'],
+        ['Task Reflection', '3']
     ]
 }, {
     element: '2',
     component: '5',
     id: 'Learning Targets',
     plans: [
-        'Student-Led Conferences', 'Leveraging Learning Targets', 'Summative Assessments', 'Formative Assessments', 'Tasks', 'Learning Target Reflection'
+        ['Student-Led Conferences', '3'],
+        ['Leveraging Learning Targets', '4'],
+        ['Summative Assessments', '2'],
+        ['Formative Assessments', '4'],
+        ['Tasks', '4'],
+        ['Learning Target Reflection', '3']
     ]
 }, {
     element: '2',
     component: '5',
     id: 'Lesson Design',
     plans: [
-        'Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions', 'Formative Assessments', 'Tasks'
+        ['Teacher as Facilitator', '2'],
+        ['Modification in the Moment', '2'],
+        ['Asking Questions', '4'],
+        ['Formative Assessments', '2'],
+        ['Tasks', '1']
     ]
 }, {
     element: '2',
     component: '5',
     id: 'Use of Protocols',
     plans: [
-        'Teacher as Facilitator', 'Modification in the Moment', 'Asking Questions'
+        ['Teacher as Facilitator', '3'],
+        ['Modification in the Moment', '0'],
+        ['Asking Questions', '4']
     ]
 }, {
     element: '2',
     component: '5',
     id: 'Reflection',
     plans: [
-        'Collaborative Best Practices',
-        'Professional Growth'
+        ['Collaborative Best Practices', '4'],
+        ['Professional Growth', '4']
     ]
 }, {
     element: '2',
     component: '6',
     id: 'Task Selection',
     plans: [
-        'Student-Led Conferences',
-        'Portfolio Passages'
+        ['Student-Led Conferences', '1'],
+        ['Portfolio Passages', '2']
     ]
 }, {
     element: '3',
     component: '7',
     id: 'Leveraging Learning Targets',
     plans: [
-        'Feedback',
+        ['Feedback', '1'],
     ]
 }, {
     element: '3',
     component: '7',
     id: 'Teacher as Facilitator',
     plans: [
-        'Leveraging Crew',
+        ['Leveraging Crew', '1'],
     ]
 }, {
     element: '3',
     component: '7',
     id: 'Peer Critique and Critical Thinking',
     plans: [
-        'Feedback',
+        ['Feedback', '3'],
     ]
 }, {
     element: '3',
@@ -260,7 +282,8 @@ const data = [{
     component: '10',
     id: 'Summative Assessments',
     plans: [
-        'Reflection', 'Data-Driven Decision Making'
+        ['Reflection', '3'],
+        ['Data-Driven Decision Making', '4']
     ]
 }, {
     element: '4',
@@ -272,7 +295,17 @@ const data = [{
     component: '10',
     id: 'Tasks',
     plans: [
-        'Visible Environment', 'Student-Led Conferences', 'Use of Protocols', 'Task Selection', 'Leveraging Learning Targets', 'Teacher as Facilitator', 'Peer Critique and Critical Thinking', 'Modification in the Moment', 'Differentiation', 'Asking Questions', 'Perseverance'
+        ['Visible Environment', '3'],
+        ['Student-Led Conferences', '4'],
+        ['Use of Protocols', '4'],
+        ['Task Selection', '4'],
+        ['Leveraging Learning Targets', '2'],
+        ['Teacher as Facilitator', '4'],
+        ['Peer Critique and Critical Thinking', '4'],
+        ['Modification in the Moment', '3'],
+        ['Differentiation', '4'],
+        ['Asking Questions', '3'],
+        ['Perseverance', '4']
     ]
 }, {
     element: '4',
@@ -284,14 +317,18 @@ const data = [{
     component: '12',
     id: 'Learning Target Reflection',
     plans: [
-        'Portfolio Passages', 'Perserverance'
+        ['Portfolio Passages', '3'],
+        ['Perserverance', '3']
     ]
 }, {
     element: '4',
     component: '12',
     id: 'Task Reflection',
     plans: [
-        'Internalizing Routines and Procedures', 'Self-evaluation', 'Student-Led conferences', 'Portfolio Passages'
+        ['Internalizing Routines and Procedures', '0'],
+        ['Self-evaluation', '2'],
+        ['Student-Led conferences', '4'],
+        ['Portfolio Passages', '4']
     ]
 }, {
     element: '5',
@@ -355,12 +392,15 @@ for (var i = 0; i < data.length; i++) {
 // populate the indicators matrix
 data.forEach(function(indicator) {
     indicator.plans.forEach(function(similarInidcator) {
-        if (indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator]] !== undefined) {
-            indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator]] = 1;
+        if (indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator[0]]] !== undefined) {
+            indicators[indicatorObj[indicator.id]][indicatorObj[similarInidcator[0]]] = 1;
         }
     });
 });
 
+
+
+console.log(indicators);
 
 // initialize square matrix for components and stash the unique id for each component
 var componentMatrix = [],
@@ -396,28 +436,94 @@ elements.forEach(function(element) {
     });
 });
 
-const fade = (opacity) => {
+const fade = (state) => {
 
-    return (obj, i) => {
-        if (obj.value === 0) {
+    return (indicator, index) => {
+        if (state) {
             svg.selectAll('path.chord')
-                .style('opacity', 0);
-        } else {
-            svg.selectAll('path.chord')
-                .style('opacity', 1);
-            svg.selectAll('path.chord')
-                .filter(function(d) {
-                    if (d.source.index === i) {
+                .filter((d, i) => {
+                    if (d.source.index === index) {
                         return false;
                     } else {
                         return true;
                     }
                 })
                 .transition()
-                .style('stroke-opacity', opacity)
-                .style('fill-opacity', opacity);
+                .style('opacity', 1);
+        } else {
+            svg.selectAll('path.chord')
+                .filter((d, i) => {
+                    if (d.source.index === index) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+                .transition()
+                .style('opacity', 0.03);
         }
     };
+};
+
+
+
+const showCorrespondingIndicatorChordsComponent = (state) => {
+    return (component, index) => {
+        if (state) {
+            svg.selectAll('path.chord')
+                .filter((d, i) => {
+                    if (components[index].id === data[d.source.index].component) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+                .style('opacity', 1);
+        } else {
+            svg.selectAll('path.chord')
+                .filter((d, i) => {
+                    if (components[index].id === data[d.source.index].component) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+                .style('opacity', 0.03);
+        }
+
+    };
+
+};
+
+
+
+const showCorrespondingIndicatorChordsElement = (state) => {
+    return (element, index) => {
+
+        if (state) {
+            svg.selectAll('path.chord')
+                .filter((d, i) => {
+                    if (elements[index].id === data[d.source.index].element) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+                .style('opacity', 1);
+        } else {
+            svg.selectAll('path.chord')
+                .filter((d, i) => {
+                    if (elements[index].id === data[d.source.index].element) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+                .style('opacity', 0.03);
+        }
+
+    };
+
 };
 
 
@@ -535,39 +641,6 @@ const makeOutlineBolderElement = (state) => {
 
 
 
-const showCorrespondingIndicatorChordsComponent = (opacity) => {
-    return (component, index) => {
-
-        svg.selectAll('path.chord')
-            .filter((d, i) => {
-                if (components[index].id === data[d.source.index].component) {
-                    return false;
-                } else {
-                    return true;
-                }
-            })
-            .style('opacity', opacity);
-    };
-
-};
-
-
-
-const showCorrespondingIndicatorChordsElement = (opacity) => {
-    return (element, index) => {
-
-        svg.selectAll('path.chord')
-            .filter((d, i) => {
-                if (elements[index].id === data[d.source.index].element) {
-                    return false;
-                } else {
-                    return true;
-                }
-            })
-            .style('opacity', opacity);
-    };
-
-};
 
 const wrap = (text, width) => {
     text.each(function() {
