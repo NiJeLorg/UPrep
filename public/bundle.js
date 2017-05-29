@@ -403,7 +403,7 @@
 	    });
 	});
 	
-	var fade = function fade(state) {
+	var showCorrespondingIndicatorChords = function showCorrespondingIndicatorChords(state) {
 	
 	    return function (indicator, index) {
 	        if (state) {
@@ -617,7 +617,7 @@
 	    componentLayout.matrix(componentMatrix);
 	    elementLayout.matrix(elementMatrix);
 	
-	    var indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', fade(0)).on('mouseout', fade(1));
+	    var indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', showCorrespondingIndicatorChords()(0)).on('mouseout', showCorrespondingIndicatorChords()(1));
 	
 	    indicatorGroups.append('svg:path').style('fill', 'white').style('stroke', 'grey').style('stroke-width', '1').on('mouseover', makeOutlineBolderIndicator(1)).on('mouseout', makeOutlineBolderIndicator(0)).attr('id', function (d, i) {
 	        return 'indicator-group' + d.index + '-' + j;

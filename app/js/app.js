@@ -436,7 +436,7 @@ elements.forEach(function(element) {
     });
 });
 
-const fade = (state) => {
+const showCorrespondingIndicatorChords = (state) => {
 
     return (indicator, index) => {
         if (state) {
@@ -748,8 +748,8 @@ svg.each(function(matrix, j) {
         .enter()
         .append('svg:g')
         .attr('class', 'indicator-group')
-        .on('mouseover', fade(0))
-        .on('mouseout', fade(1));
+        .on('mouseover', showCorrespondingIndicatorChords()(0))
+        .on('mouseout', showCorrespondingIndicatorChords()(1));
 
 
     indicatorGroups.append('svg:path')
