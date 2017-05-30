@@ -55,7 +55,8 @@ main .content-holder {
   background: #F9F9F9;
   box-shadow: -6px 2px 20px 0 rgba(179, 179, 179, 0.5);
   box-sizing: border-box;
-  display: none; }
+  display: none;
+  overflow-y: scroll; }
 
 main .svg-holder {
   flex-basis: 100%; }
