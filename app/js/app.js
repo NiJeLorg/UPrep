@@ -1048,23 +1048,22 @@ svg.each(function(matrix, j) {
                 'flex-basis': '25%'
             });
 
-            console.log(data[i].levels['1']);
             appendIndicatorTemplate();
             $('.indicatorTitle').text(data[i].id);
             if (data[i].levels['1']) {
-                $('.levelOne').text('1');
+                $('.levelOne').text('Level 1');
                 $('.levelOneBody').text(data[i].levels['1']);
             }
             if (data[i].levels['2']) {
-                $('.levelTwo').text('2');
+                $('.levelTwo').text('Level 2');
                 $('.levelTwoBody').text(data[i].levels['2']);
             }
             if (data[i].levels['3']) {
-                $('.levelThree').text('3');
+                $('.levelThree').text('Level 3');
                 $('.levelThreeBody').text(data[i].levels['3']);
             }
             if (data[i].levels['4']) {
-                $('.levelFour').text('4');
+                $('.levelFour').text('Level 4');
                 $('.levelFourBody').text(data[i].levels['4']);
             }
             // $('.componentBody').text(components[i].body);
@@ -1196,7 +1195,11 @@ svg.each(function(matrix, j) {
                 'display': 'block',
                 'flex-basis': '25%'
             });
+            $('main .content-holder').animate({
+                display: 'block',
+            }, 3000);
             appendElementTemplate();
+            $('.headerColor').css('background', elements[i].color);
             $('.elementTitle').text(elements[i].element);
             $('.elementTag').text(elements[i].tag);
             $('.elementBody').text(elements[i].body);
@@ -1272,9 +1275,11 @@ svg.each(function(matrix, j) {
 const appendElementTemplate = () => {
     $('.template').remove();
     var html = '<div class="template">' +
+        '<div class="headerColor"></div>' +
         '<h2 class="elementTitle"></h2>' +
         '<h5 class="elementTag"></h5>' +
-        '<p class="elementBody"></p>' + '</div>'
+        '<p class="elementBody"></p>' +
+        '<div class="headerColor"></div>' + '</div>'
     $('main .content-holder').append(html);
 }
 
@@ -1293,13 +1298,13 @@ const appendIndicatorTemplate = () => {
     var html = '<div class="template">' +
         '<h2 class="indicatorTitle"></h2>' +
         '<h3 class="indicatorLevelsTitle">LEVELS</h3>' +
-        '<h4>' + 'Level' + '<span class="levelOne"> </span>' + '</h4>' +
+        '<h4>' + '<span class="levelOne"> </span>' + '</h4>' +
         '<p class="levelOneBody"> </p>' +
-        '<h4>' + 'Level' + '<span class="levelTwo"> </span>' + '</h4>' +
+        '<h4>' + '<span class="levelTwo"> </span>' + '</h4>' +
         '<p class="levelTwoBody"> </p>' +
-        '<h4>' + 'Level' + '<span class="levelThree"> </span>' + '</h4>' +
+        '<h4>' + '<span class="levelThree"> </span>' + '</h4>' +
         '<p class="levelThreeBody"> </p>' +
-        '<h4>' + 'Level' + '<span class="levelFour"> </span>' + '</h4>' +
+        '<h4>' + '<span class="levelFour"> </span>' + '</h4>' +
         '<p class="levelFourBody"> </p>' + '</div>'
     $('main .content-holder').append(html);
 }
