@@ -378,6 +378,8 @@ const data = [{
 }, ];
 
 
+var connectionType = 'both';
+
 var indicators = [],
     indicatorObj = {};
 for (var i = 0; i < data.length; i++) {
@@ -399,8 +401,6 @@ data.forEach(function(indicator) {
 });
 
 
-
-console.log(indicators);
 
 // initialize square matrix for components and stash the unique id for each component
 var componentMatrix = [],
@@ -436,93 +436,116 @@ elements.forEach(function(element) {
     });
 });
 
-const showCorrespondingIndicatorChords = (state) => {
+const fade = (opacity) => {
 
-    return (indicator, index) => {
-        if (state) {
+    if (connectionType === 'both') {
+
+        return (indicator, index) => {
             svg.selectAll('path.chord')
-                .filter((d, i) => {
-                    if (d.source.index === index) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                .filter((d) => {
+                    return d.source.index != index && d.target.index != index;
                 })
                 .transition()
-                .style('opacity', 1);
-        } else {
+                .style('opacity', opacity);
+
+        };
+    } else if (connectionType === 'outgoing') {
+        return (indicator, index) => {
             svg.selectAll('path.chord')
-                .filter((d, i) => {
-                    if (d.source.index === index) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                .filter((d) => {
+                    return d.source.index != index;
                 })
                 .transition()
-                .style('opacity', 0.03);
-        }
-    };
-};
+                .style('opacity', opacity);
 
-
-
-const showCorrespondingIndicatorChordsComponent = (state) => {
-    return (component, index) => {
-        if (state) {
+        };
+    } else {
+        return (indicator, index) => {
             svg.selectAll('path.chord')
-                .filter((d, i) => {
-                    if (components[index].id === data[d.source.index].component) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                .filter((d) => {
+                    return d.target.index != index;
                 })
-                .style('opacity', 1);
-        } else {
-            svg.selectAll('path.chord')
-                .filter((d, i) => {
-                    if (components[index].id === data[d.source.index].component) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                })
-                .style('opacity', 0.03);
-        }
+                .transition()
+                .style('opacity', opacity);
 
-    };
+        };
+    }
 
 };
 
 
 
-const showCorrespondingIndicatorChordsElement = (state) => {
-    return (element, index) => {
+const showCorrespondingIndicatorChordsComponent = (opacity) => {
 
-        if (state) {
-            svg.selectAll('path.chord')
-                .filter((d, i) => {
-                    if (elements[index].id === data[d.source.index].element) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                })
-                .style('opacity', 1);
-        } else {
-            svg.selectAll('path.chord')
-                .filter((d, i) => {
-                    if (elements[index].id === data[d.source.index].element) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                })
-                .style('opacity', 0.03);
-        }
+    if (connectionType === 'both') {
 
-    };
+        return (component, index) => {
+            svg.selectAll('path.chord')
+                .filter((d) => {
+                    return components[index].id != data[d.source.index].component && components[index].id != data[d.target.index].component
+                })
+                .transition()
+                .style('opacity', opacity);
+
+        };
+    } else if (connectionType === 'outgoing') {
+        return (component, index) => {
+            svg.selectAll('path.chord')
+                .filter((d) => {
+                    return components[index].id != data[d.source.index].component
+                })
+                .transition()
+                .style('opacity', opacity);
+
+        };
+    } else {
+        return (component, index) => {
+            svg.selectAll('path.chord')
+                .filter((d) => {
+                    return components[index].id != data[d.target.index].component
+                })
+                .transition()
+                .style('opacity', opacity);
+
+        };
+    }
+
+};
+
+
+const showCorrespondingIndicatorChordsElement = (opacity) => {
+    if (connectionType === 'both') {
+
+        return (element, index) => {
+            svg.selectAll('path.chord')
+                .filter((d) => {
+                    return elements[index].id != data[d.source.index].element && elements[index].id != data[d.target.index].element
+                })
+                .transition()
+                .style('opacity', opacity);
+
+        };
+    } else if (connectionType === 'outgoing') {
+        return (element, index) => {
+            svg.selectAll('path.chord')
+                .filter((d) => {
+                    return elements[index].id != data[d.source.index].element
+                })
+                .transition()
+                .style('opacity', opacity);
+
+        };
+    } else {
+        return (element, index) => {
+            svg.selectAll('path.chord')
+                .filter((d) => {
+                    return elements[index].id != data[d.target.index].element
+                })
+                .transition()
+                .style('opacity', opacity);
+
+        };
+    }
 
 };
 
@@ -628,18 +651,9 @@ const makeOutlineBolderElement = (state) => {
                 .style('fill-opacity', '0.7')
                 .style('font-weight', 'regular');
         }
-
-
     };
 
 };
-
-
-
-
-
-
-
 
 
 const wrap = (text, width) => {
@@ -735,7 +749,8 @@ var svg = d3.select('.svg-holder').selectAll('div')
     .append('svg:g')
     .attr('transform', "translate(" + width / 2 + "," + height / 2 + ")");
 
-var colors = [];
+var indicatorGroups, componentGroups, elementGroups;
+
 
 svg.each(function(matrix, j) {
     var svg = d3.select(this);
@@ -743,13 +758,13 @@ svg.each(function(matrix, j) {
     componentLayout.matrix(componentMatrix);
     elementLayout.matrix(elementMatrix);
 
-    var indicatorGroups = svg.selectAll('g.indicator-group')
+    indicatorGroups = svg.selectAll('g.indicator-group')
         .data(indicatorLayout.groups)
         .enter()
         .append('svg:g')
         .attr('class', 'indicator-group')
-        .on('mouseover', showCorrespondingIndicatorChords()(0))
-        .on('mouseout', showCorrespondingIndicatorChords()(1));
+        .on('mouseover', fade(0.1))
+        .on('mouseout', fade(1));
 
 
     indicatorGroups.append('svg:path')
@@ -769,12 +784,12 @@ svg.each(function(matrix, j) {
 
 
     // add component groups
-    var componentGroups = svg.selectAll('g.component-group-main')
+    componentGroups = svg.selectAll('g.component-group-main')
         .data(componentLayout.groups)
         .enter()
         .append('svg:g')
         .attr('class', 'component-group-main')
-        .on('mouseover', showCorrespondingIndicatorChordsComponent(0))
+        .on('mouseover', showCorrespondingIndicatorChordsComponent(0.1))
         .on('mouseout', showCorrespondingIndicatorChordsComponent(1));
 
     // Add the component group arc
@@ -800,9 +815,9 @@ svg.each(function(matrix, j) {
         .attr('dy', 35)
         .attr('font-size', function(d, i) {
             if (components[i].id == 7 || components[i].id == 8 || components[i].id == 9 || components[i].id == 10 || components[i].id == 11 || components[i].id == 12) {
-                return 11
+                return 11;
             } else {
-                return 14
+                return 14;
             }
         })
         .append('svg:textPath')
@@ -855,12 +870,12 @@ svg.each(function(matrix, j) {
         .call(wrap, 62);
 
     // add element groups
-    var elementGroups = svg.selectAll('g.element-group-main')
+    elementGroups = svg.selectAll('g.element-group-main')
         .data(elementLayout.groups)
         .enter()
         .append('svg:g')
         .attr('class', 'element-group-main')
-        .on('mouseover', showCorrespondingIndicatorChordsElement(0))
+        .on('mouseover', showCorrespondingIndicatorChordsElement(0.1))
         .on('mouseout', showCorrespondingIndicatorChordsElement(1))
 
     // Add the element group arc
@@ -925,4 +940,19 @@ svg.each(function(matrix, j) {
         })
         .call(wrap, 90);
 
+});
+
+
+
+
+$(document).ready(() => {
+    $('select').change(() => {
+        connectionType = $('select').val();
+        indicatorGroups.on('mouseover', fade(0.1))
+        indicatorGroups.on('mouseout', fade(1))
+        componentGroups.on('mouseover', showCorrespondingIndicatorChordsComponent(0.1))
+        componentGroups.on('mouseout', showCorrespondingIndicatorChordsComponent(1));
+        elementGroups.on('mouseover', showCorrespondingIndicatorChordsElement(0.1))
+        elementGroups.on('mouseout', showCorrespondingIndicatorChordsElement(1))
+    })
 });

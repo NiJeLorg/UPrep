@@ -348,6 +348,8 @@
 	    plans: []
 	}];
 	
+	var connectionType = 'both';
+	
 	var indicators = [],
 	    indicatorObj = {};
 	for (var i = 0; i < data.length; i++) {
@@ -366,8 +368,6 @@
 	        }
 	    });
 	});
-	
-	console.log(indicators);
 	
 	// initialize square matrix for components and stash the unique id for each component
 	var componentMatrix = [],
@@ -403,72 +403,75 @@
 	    });
 	});
 	
-	var showCorrespondingIndicatorChords = function showCorrespondingIndicatorChords(state) {
+	var fade = function fade(opacity) {
 	
-	    return function (indicator, index) {
-	        if (state) {
-	            svg.selectAll('path.chord').filter(function (d, i) {
-	                if (d.source.index === index) {
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            }).transition().style('opacity', 1);
-	        } else {
-	            svg.selectAll('path.chord').filter(function (d, i) {
-	                if (d.source.index === index) {
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            }).transition().style('opacity', 0.03);
-	        }
-	    };
+	    if (connectionType === 'both') {
+	
+	        return function (indicator, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return d.source.index != index && d.target.index != index;
+	            }).transition().style('opacity', opacity);
+	        };
+	    } else if (connectionType === 'outgoing') {
+	        return function (indicator, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return d.source.index != index;
+	            }).transition().style('opacity', opacity);
+	        };
+	    } else {
+	        return function (indicator, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return d.target.index != index;
+	            }).transition().style('opacity', opacity);
+	        };
+	    }
 	};
 	
-	var showCorrespondingIndicatorChordsComponent = function showCorrespondingIndicatorChordsComponent(state) {
-	    return function (component, index) {
-	        if (state) {
-	            svg.selectAll('path.chord').filter(function (d, i) {
-	                if (components[index].id === data[d.source.index].component) {
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            }).style('opacity', 1);
-	        } else {
-	            svg.selectAll('path.chord').filter(function (d, i) {
-	                if (components[index].id === data[d.source.index].component) {
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            }).style('opacity', 0.03);
-	        }
-	    };
+	var showCorrespondingIndicatorChordsComponent = function showCorrespondingIndicatorChordsComponent(opacity) {
+	
+	    if (connectionType === 'both') {
+	
+	        return function (component, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return components[index].id != data[d.source.index].component && components[index].id != data[d.target.index].component;
+	            }).transition().style('opacity', opacity);
+	        };
+	    } else if (connectionType === 'outgoing') {
+	        return function (component, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return components[index].id != data[d.source.index].component;
+	            }).transition().style('opacity', opacity);
+	        };
+	    } else {
+	        return function (component, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return components[index].id != data[d.target.index].component;
+	            }).transition().style('opacity', opacity);
+	        };
+	    }
 	};
 	
-	var showCorrespondingIndicatorChordsElement = function showCorrespondingIndicatorChordsElement(state) {
-	    return function (element, index) {
+	var showCorrespondingIndicatorChordsElement = function showCorrespondingIndicatorChordsElement(opacity) {
+	    if (connectionType === 'both') {
 	
-	        if (state) {
-	            svg.selectAll('path.chord').filter(function (d, i) {
-	                if (elements[index].id === data[d.source.index].element) {
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            }).style('opacity', 1);
-	        } else {
-	            svg.selectAll('path.chord').filter(function (d, i) {
-	                if (elements[index].id === data[d.source.index].element) {
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            }).style('opacity', 0.03);
-	        }
-	    };
+	        return function (element, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return elements[index].id != data[d.source.index].element && elements[index].id != data[d.target.index].element;
+	            }).transition().style('opacity', opacity);
+	        };
+	    } else if (connectionType === 'outgoing') {
+	        return function (element, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return elements[index].id != data[d.source.index].element;
+	            }).transition().style('opacity', opacity);
+	        };
+	    } else {
+	        return function (element, index) {
+	            svg.selectAll('path.chord').filter(function (d) {
+	                return elements[index].id != data[d.target.index].element;
+	            }).transition().style('opacity', opacity);
+	        };
+	    }
 	};
 	
 	var makeOutlineBolderIndicator = function makeOutlineBolderIndicator(state) {
@@ -609,7 +612,7 @@
 	// attach svg object to the content well
 	var svg = d3.select('.svg-holder').selectAll('div').data([indicators]).enter().append('div').style('width', width + 'px').style('height', height + 'px').append('svg:svg').attr('width', width).attr('height', height).append('svg:g').attr('transform', "translate(" + width / 2 + "," + height / 2 + ")");
 	
-	var colors = [];
+	var indicatorGroups, componentGroups, elementGroups;
 	
 	svg.each(function (matrix, j) {
 	    var svg = d3.select(this);
@@ -617,7 +620,7 @@
 	    componentLayout.matrix(componentMatrix);
 	    elementLayout.matrix(elementMatrix);
 	
-	    var indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', showCorrespondingIndicatorChords()(0)).on('mouseout', showCorrespondingIndicatorChords()(1));
+	    indicatorGroups = svg.selectAll('g.indicator-group').data(indicatorLayout.groups).enter().append('svg:g').attr('class', 'indicator-group').on('mouseover', fade(0.1)).on('mouseout', fade(1));
 	
 	    indicatorGroups.append('svg:path').style('fill', 'white').style('stroke', 'grey').style('stroke-width', '1').on('mouseover', makeOutlineBolderIndicator(1)).on('mouseout', makeOutlineBolderIndicator(0)).attr('id', function (d, i) {
 	        return 'indicator-group' + d.index + '-' + j;
@@ -626,7 +629,7 @@
 	    });
 	
 	    // add component groups
-	    var componentGroups = svg.selectAll('g.component-group-main').data(componentLayout.groups).enter().append('svg:g').attr('class', 'component-group-main').on('mouseover', showCorrespondingIndicatorChordsComponent(0)).on('mouseout', showCorrespondingIndicatorChordsComponent(1));
+	    componentGroups = svg.selectAll('g.component-group-main').data(componentLayout.groups).enter().append('svg:g').attr('class', 'component-group-main').on('mouseover', showCorrespondingIndicatorChordsComponent(0.1)).on('mouseout', showCorrespondingIndicatorChordsComponent(1));
 	
 	    // Add the component group arc
 	    componentGroups.append('svg:path').style('fill', 'white').style('stroke', 'grey').style('stroke-width', '1').on('mouseover', makeOutlineBolderComponent(1)).on('mouseout', makeOutlineBolderComponent(0)).attr('id', function (d, i) {
@@ -681,7 +684,7 @@
 	    }).call(wrap, 62);
 	
 	    // add element groups
-	    var elementGroups = svg.selectAll('g.element-group-main').data(elementLayout.groups).enter().append('svg:g').attr('class', 'element-group-main').on('mouseover', showCorrespondingIndicatorChordsElement(0)).on('mouseout', showCorrespondingIndicatorChordsElement(1));
+	    elementGroups = svg.selectAll('g.element-group-main').data(elementLayout.groups).enter().append('svg:g').attr('class', 'element-group-main').on('mouseover', showCorrespondingIndicatorChordsElement(0.1)).on('mouseout', showCorrespondingIndicatorChordsElement(1));
 	
 	    // Add the element group arc
 	    elementGroups.append('svg:path').style('fill', function (d, i) {
@@ -716,6 +719,18 @@
 	    }).text(function (d, i) {
 	        return data[i].id;
 	    }).call(wrap, 90);
+	});
+	
+	$(document).ready(function () {
+	    $('select').change(function () {
+	        connectionType = $('select').val();
+	        indicatorGroups.on('mouseover', fade(0.1));
+	        indicatorGroups.on('mouseout', fade(1));
+	        componentGroups.on('mouseover', showCorrespondingIndicatorChordsComponent(0.1));
+	        componentGroups.on('mouseout', showCorrespondingIndicatorChordsComponent(1));
+	        elementGroups.on('mouseover', showCorrespondingIndicatorChordsElement(0.1));
+	        elementGroups.on('mouseout', showCorrespondingIndicatorChordsElement(1));
+	    });
 	});
 
 /***/ }),
