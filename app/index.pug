@@ -1,5 +1,14 @@
 html
   include shared-views/head
   body
-    .svg-holder
+    select
+      option(value='outgoing') Outgoing
+      option(value='incoming') Incoming
+      option(value='both' selected='selected') Both
+    main
+      .svg-holder
+      .content-holder
+        .close
+          .closeButton
+            p X
     script(src='bundle.js')

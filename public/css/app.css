@@ -1,6 +1,9 @@
+body {
+  margin: 0; }
+
 .indicator-group text,
-.component-group text,
-.element-group text {
+.component-group-main text,
+.element-group-main text {
   font-family: 'Nunito', sans-serif;
   pointer-events: none; }
 
@@ -23,6 +26,11 @@ path.chord {
 .element-group-main {
   fill-opacity: 0.7; }
 
+.component-group-main,
+.element-group-main,
+.indicator-group {
+  cursor: pointer; }
+
 .component-group-main {
   font-family: 'Nunito', sans-serif; }
 
@@ -33,3 +41,55 @@ body h2 {
   font-family: 'Nunito', sans-serif;
   text-align: center;
   margin: 20px 0; }
+
+select {
+  position: absolute;
+  left: 40px;
+  top: 40px; }
+
+main {
+  display: flex; }
+
+main .content-holder {
+  height: 100%;
+  background: #F9F9F9;
+  box-shadow: -6px 2px 20px 0 rgba(179, 179, 179, 0.5);
+  box-sizing: border-box;
+  display: none;
+  overflow-y: scroll; }
+
+main .svg-holder {
+  flex-basis: 100%; }
+
+.elementTag {
+  font-style: italic; }
+
+.elementBody,
+.componentBody {
+  line-height: 25px;
+  text-align: justify; }
+
+.elementTag {
+  font-style: italic;
+  text-align: center; }
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold; }
+
+.close .closeButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid #F63F27;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 20px;
+  color: #373737;
+  cursor: pointer; }
+
+.template {
+  font-family: 'Source Sans Pro';
+  padding: 0 15px; }
