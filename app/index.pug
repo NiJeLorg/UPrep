@@ -1,5 +1,21 @@
 html
   include shared-views/head
   body
-    .svg-holder
+    .title 
+      .regular The 
+      .purple Five Elements 
+      .regular of the 
+      .the-u 
+      .grey A Roadmap
+    .logo
+    select
+      option(value='outgoing') Outgoing
+      option(value='incoming') Incoming
+      option(value='both' selected='selected') Both
+    main
+      .svg-holder
+      .content-holder
+        .close
+          .closeButton
+            p X
     script(src='bundle.js')

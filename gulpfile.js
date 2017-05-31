@@ -37,8 +37,7 @@ gulp.task('sass2css', () => {
 gulp.task('buildJS', () => {
     gulp.src(paths.entryJs)
         .pipe(webpack(require('./webpack.config')))
-        .pipe(gulp.dest(paths.public))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest(paths.public));
 });
 
 gulp.task('watch', () => {
