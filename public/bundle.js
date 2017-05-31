@@ -903,6 +903,10 @@
 	            'flex-basis': '25%'
 	        });
 	
+	        $('.logo').css({
+	            'right': '22%'
+	        });
+	
 	        appendIndicatorTemplate();
 	        $('.indicatorTitle').text(data[i].id);
 	        if (data[i].levels['1']) {
@@ -935,6 +939,9 @@
 	        $('main .content-holder').css({
 	            'display': 'block',
 	            'flex-basis': '25%'
+	        });
+	        $('.logo').css({
+	            'right': '22%'
 	        });
 	        appendComponentTemplate();
 	        $('.componentTitle').text(components[i].component);
@@ -998,6 +1005,9 @@
 	        $('main .content-holder').css({
 	            'display': 'block',
 	            'flex-basis': '25%'
+	        });
+	        $('.logo').css({
+	            'right': '22%'
 	        });
 	        $('main .content-holder').animate({
 	            display: 'block'
@@ -1074,6 +1084,9 @@
 	    });
 	    $('.closeButton').click(function () {
 	        $('.content-holder').css('display', 'none');
+	        $('.logo').css({
+	            'right': '2%'
+	        });
 	    });
 	});
 
