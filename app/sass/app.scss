@@ -57,10 +57,23 @@ select {
     position: absolute;
     left: 40px;
     top: 40px;
+    width: 120px;
+    height: 50px;
+    outline: none;
+    font-size: 16px;
 }
 
 main {
     display: flex;
+}
+
+@keyframes example {
+    0% {
+        flex-basis: 0%;
+    }
+    100% {
+        flex-basis: 25%;
+    }
 }
 
 main .content-holder {
@@ -70,6 +83,11 @@ main .content-holder {
     box-sizing: border-box;
     display: none;
     overflow-y: scroll;
+    flex-basis: 0%;
+    transition: flex-basis 15s;
+    animation-name: example;
+    animation-duration: .25s;
+    animation-timing-function: ease-in;
 }
 
 main .svg-holder {
@@ -95,22 +113,24 @@ main .svg-holder {
     display: flex;
     justify-content: flex-end;
     font-weight: bold;
+    border-bottom: 1px solid #cccccc;
 }
 
 .close .closeButton {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 3px solid #F63F27;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px 20px;
     color: rgb(55, 55, 55);
     cursor: pointer;
+    margin-right: 15px;
+    font-family: 'Source Sans Pro';
 }
 
 .template {
     font-family: 'Source Sans Pro';
     padding: 0 15px;
+}
+
+.headerColor {
+    height: 40px;
 }
