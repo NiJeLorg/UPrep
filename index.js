@@ -23,7 +23,6 @@ uPrepApp.get('/', (req, res) => {
 });
 
 // start the server
-process.env.PORT = 5000
 uPrepApp.listen(process.env.PORT, () => {
     console.log('Server running on port ' + process.env.PORT);
 });
